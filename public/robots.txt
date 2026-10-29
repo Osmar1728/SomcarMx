@@ -1,0 +1,89 @@
+User-agent: *
+Allow: /
+
+# Permitir indexación completa
+Disallow:
+
+# Bots de IA bienvenidos (alimentan respuestas con datos oficiales)
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# Google
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# Meta
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Apple
+User-agent: Applebot-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Common Crawl
+User-agent: CCBot
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckGo AssistBot
+Allow: /
+
+# China: ByteDance (Doubao)
+User-agent: Bytespider
+Allow: /
+
+# China: Baidu (buscador + IA)
+User-agent: Baiduspider
+Allow: /
+
+# China: Sogou
+User-agent: Sogou spider
+Allow: /
+
+# China: 360 Search
+User-agent: 360Spider
+Allow: /
+
+Sitemap: https://somcar.mx/sitemap.xml

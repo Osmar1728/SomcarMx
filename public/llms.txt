@@ -1,0 +1,32 @@
+# SOMCAR
+
+> Sitio oficial de SOMCAR. (Completa esta ficha con tu propuesta de valor, servicios y cobertura.)
+
+## Contacto
+
+- Contacto: https://somcar.mx/contacto
+- (Agrega aquí teléfono, correo y horario.)
+
+## Servicios
+
+- (Lista tus servicios con una línea cada uno.)
+- Detalle: https://somcar.mx/
+
+## Cobertura
+
+- (Describe tu cobertura o zona de servicio.)
+
+## Proceso
+
+1. (Paso 1: cómo te contactan.)
+2. (Paso 2: cómo cotizas o atiendes.)
+3. (Paso 3: cómo entregas o cierras.)
+
+## Preguntas frecuentes
+
+(Traslada aquí las preguntas que respondas en el home: una línea por tema.)
+
+## Legal
+
+- Términos y condiciones: https://somcar.mx/terminos
+- Aviso de privacidad (LFPDPPP): https://somcar.mx/privacidad
