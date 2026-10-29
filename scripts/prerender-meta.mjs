@@ -41,7 +41,7 @@ function renderPage({ slug, locale }) {
   const name = slug.startsWith("/servicios/") ? "ficha" : STATIC_KEY[slug];
   const param = slug.startsWith("/servicios/") ? slug.slice("/servicios/".length) : "";
   const canonical = `${SITE_URL}${path}`;
-  const image = `${SITE_URL}/og-cover.webp`;
+  const image = `${SITE_URL}/img/logo-fondo-negro.jpeg`;
   let html = template;
   html = setLang(html, locale);
   html = setTitle(html, meta.title);

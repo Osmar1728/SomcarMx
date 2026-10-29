@@ -35,6 +35,6 @@ npm run preview  # vista previa del build
 ### Pendiente antes de publicar
 
 1. Textos reales en `PAGE_META` (`src/lib/router.ts`) y en cada página.
-2. Subir `public/favicon.svg` y `public/og-cover.webp` (1920x1072).
+2. `favicon` y `og:image` ya apuntan al logo en `public/img/`. Si agregas una portada panorámica (1920x1072), súbela como `public/og-cover.webp` y cambia las 3 referencias (`index.html` ×2 + `prerender-meta.mjs`).
 3. Datos de contacto reales en `public/llms.txt` y el `<noscript>` de `index.html`.
 4. Etiqueta de `google-site-verification` en `index.html`, enviar el sitemap en Search Console y pedir indexación de las URLs principales.
