@@ -2,13 +2,13 @@
 
 Base Vite + React 19 + TypeScript + Tailwind CSS v4 con el sistema SEO replicado de LS NEXOR.
 
-## Rutas (URLs limpias)
+## Rutas (URLs limpias, 3 idiomas: es sin prefijo, /en/*, /it/*)
 
 | Ruta | Página |
 |---|---|
-| `/` | Inicio |
-| `/contacto` | Contacto |
-| `/terminos`, `/privacidad` | Textos legales |
+| `/`, `/en`, `/it` | Inicio |
+| `/contacto`, `/en/contacto`, `/it/contacto` | Contacto |
+| `/terminos`, `/privacidad` (+ `/en/*`, `/it/*`) | Textos legales |
 
 ## Scripts
 
@@ -22,9 +22,9 @@ npm run preview  # vista previa del build
 ## SEO (qué mantener actualizado)
 
 - `index.html`: title, description, robots, canonical, hreflang, Open Graph, Twitter y JSON-LD.
-- `src/lib/router.ts`: `PAGE_META` (título y descripción por ruta) y `SITE_URL`. `/404` se marca `noindex`.
-- Cada página renderiza un solo `<h1>`.
-- `public/sitemap.xml`: se regenera solo con `npm run build` y `npm run sitemap`.
+- `src/lib/router.ts`: `PAGE_META` (título y descripción por ruta **e idioma**), `localize()` y `pageAlternates()` (hreflang es/en/it + x-default). `/404` se marca `noindex`.
+- Cada página renderiza un solo `<h1>` y el `<html lang>` cambia con el idioma.
+- `public/sitemap.xml`: se regenera solo con `npm run build` y `npm run sitemap` (12 URLs con hreflang).
 - `public/robots.txt`: revisa que el `Sitemap:` apunte al dominio final.
 - `public/llms.txt`: ficha para IAs; complétala con servicios, cobertura y contacto reales.
 - `public/.htaccess`: fuerza HTTPS + apex (`somcar.mx`) y sirve las URLs limpias (requerido en Hostinger/Apache).
@@ -35,4 +35,4 @@ npm run preview  # vista previa del build
 1. Textos reales en `PAGE_META` (`src/lib/router.ts`) y en cada página.
 2. Subir `public/favicon.svg` y `public/og-cover.webp` (1920x1072).
 3. Datos de contacto reales en `public/llms.txt` y el `<noscript>` de `index.html`.
-4. Etiqueta de `google-site-verification` en `index.html`, enviar el sitemap en Search Console y pedir indexación de las 4 URLs.
+4. Etiqueta de `google-site-verification` en `index.html`, enviar el sitemap en Search Console y pedir indexación de las 12 URLs.

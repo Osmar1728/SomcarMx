@@ -2,6 +2,13 @@
 
 > Sitio oficial de SOMCAR. (Completa esta ficha con tu propuesta de valor, servicios y cobertura.)
 
+## Idiomas
+
+- Español (default, sin prefijo): https://somcar.mx/
+- English: https://somcar.mx/en (rutas /en/contacto, /en/terminos, /en/privacidad)
+- Italiano: https://somcar.mx/it (rutas /it/contacto, /it/terminos, /it/privacidad)
+- Las 3 versiones están enlazadas con hreflang (es/en/it + x-default → español).
+
 ## Contacto
 
 - Contacto: https://somcar.mx/contacto

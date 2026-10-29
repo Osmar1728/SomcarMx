@@ -1,20 +1,23 @@
-// Prerender de metadatos por ruta (Open Graph para WhatsApp/Facebook/X).
+// Prerender de metadatos por ruta e idioma (Open Graph para WhatsApp/Facebook/X).
 // Los crawlers sociales NO ejecutan JS: leen el HTML tal como lo sirve Apache.
 // Este script corre DESPUÉS de `vite build` y genera un index.html por ruta
-// en dist/ con sus metas ya inyectadas (título, descripción, canonical, OG).
-// Apache sirve esos archivos directo (existen en disco); el bundle React
-// arranca igual encima, así que el humano no nota diferencia.
+// en dist/ con sus metas ya inyectadas (lang, título, descripción, canonical,
+// hreflang, OG). Apache sirve esos archivos directo (existen en disco);
+// el bundle React arranca igual encima, así que el humano no nota diferencia.
 // Fuente única de verdad: PAGE_META (sin duplicar textos).
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { PAGE_META, SITE_URL } from "../src/lib/router.ts";
+import { LOCALES, PAGE_META, SITE_URL, pageAlternates } from "../src/lib/router.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
 const template = readFileSync(join(dist, "index.html"), "utf8");
 
+const OG_LOCALE = { es: "es_ES", en: "en_US", it: "it_IT" };
+
 const setTitle = (html, v) => html.replace(/<title>.*?<\/title>/, `<title>${v}</title>`);
+const setLang = (html, v) => html.replace(/<html lang="[^"]*">/, `<html lang="${v}">`);
 const setContent = (html, attr, key, v) =>
   html.replace(
     new RegExp(`<meta ${attr}="${key}" content="[^"]*" />`),
@@ -26,42 +29,40 @@ const setHref = (html, rel, v, extra = "") =>
     `<link rel="${rel}"${extra} href="${v}" />`,
   );
 
-function renderPage({ path, title, desc, image, keywords }) {
+function renderPage({ slug, locale }) {
+  const path = locale === "es" ? slug || "/" : `/${locale}${slug}`;
+  const meta = PAGE_META[locale][slug === "" ? "home" : slug.slice(1)];
   const canonical = `${SITE_URL}${path}`;
+  const image = `${SITE_URL}/og-cover.webp`;
   let html = template;
-  html = setTitle(html, title);
-  html = setContent(html, "name", "description", desc);
-  html = setContent(html, "name", "keywords", keywords);
+  html = setLang(html, locale);
+  html = setTitle(html, meta.title);
+  html = setContent(html, "name", "description", meta.desc);
+  html = setContent(html, "name", "keywords", "somcar");
   html = setHref(html, "canonical", canonical);
-  html = setHref(html, "alternate", canonical, ` hreflang="es-MX"`);
-  html = setHref(html, "alternate", canonical, ` hreflang="x-default"`);
-  html = setContent(html, "property", "og:title", title);
-  html = setContent(html, "property", "og:description", desc);
+  for (const [lang, url] of Object.entries(pageAlternates(slug === "" ? "home" : slug.slice(1)))) {
+    html = setHref(html, "alternate", url, ` hreflang="${lang}"`);
+  }
+  html = setContent(html, "property", "og:title", meta.title);
+  html = setContent(html, "property", "og:description", meta.desc);
   html = setContent(html, "property", "og:url", canonical);
+  html = setContent(html, "property", "og:locale", OG_LOCALE[locale]);
   html = setContent(html, "property", "og:image", image);
-  html = setContent(html, "property", "og:image:alt", title);
-  html = setContent(html, "name", "twitter:title", title);
-  html = setContent(html, "name", "twitter:description", desc);
+  html = setContent(html, "property", "og:image:alt", meta.title);
+  html = setContent(html, "name", "twitter:title", meta.title);
+  html = setContent(html, "name", "twitter:description", meta.desc);
   html = setContent(html, "name", "twitter:image", image);
-  html = setContent(html, "name", "twitter:image:alt", title);
+  html = setContent(html, "name", "twitter:image:alt", meta.title);
   const outDir = join(dist, path);
   mkdirSync(outDir, { recursive: true });
   writeFileSync(join(outDir, "index.html"), html, "utf8");
   return canonical;
 }
 
-const OG_DEFAULT = `${SITE_URL}/og-cover.webp`;
-const KW_DEFAULT = "somcar";
-const pages = [
-  { path: "/contacto", meta: "contacto", image: OG_DEFAULT },
-  { path: "/terminos", meta: "terminos", image: OG_DEFAULT },
-  { path: "/privacidad", meta: "privacidad", image: OG_DEFAULT },
-];
-
 const done = [];
-for (const p of pages) {
-  done.push(
-    renderPage({ path: p.path, title: PAGE_META[p.meta].title, desc: PAGE_META[p.meta].desc, image: p.image, keywords: KW_DEFAULT }),
-  );
+for (const locale of LOCALES) {
+  for (const slug of ["", "/contacto", "/terminos", "/privacidad"]) {
+    done.push(renderPage({ slug, locale }));
+  }
 }
 console.log(`Prerender OG: ${done.length} páginas -> dist/*/index.html`);

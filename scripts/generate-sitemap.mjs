@@ -22,24 +22,35 @@ function lastmodOf(...relPaths) {
   return latest ? new Date(latest).toISOString().slice(0, 10) : today;
 }
 
-// Una sola fuente de verdad: misma lista de rutas que src/lib/router.ts.
-const urls = [
-  { path: "/", priority: "1.0", changefreq: "weekly", src: ["index.html", "src/App.tsx", "src/main.tsx"] },
-  { path: "/contacto", priority: "0.9", changefreq: "monthly", src: ["src/App.tsx"] },
-  { path: "/terminos", priority: "0.3", changefreq: "yearly", src: ["src/App.tsx"] },
-  { path: "/privacidad", priority: "0.3", changefreq: "yearly", src: ["src/App.tsx"] },
+const LOCALES = ["es", "en", "it"];
+const pathOf = (slug, locale) => (locale === "es" ? slug || "/" : `/${locale}${slug}`);
+
+// Una sola fuente de verdad: misma lista de páginas que src/lib/router.ts.
+const pages = [
+  { slug: "", priority: "1.0", changefreq: "weekly", src: ["index.html", "src/App.tsx", "src/main.tsx"] },
+  { slug: "/contacto", priority: "0.9", changefreq: "monthly", src: ["src/App.tsx"] },
+  { slug: "/terminos", priority: "0.3", changefreq: "yearly", src: ["src/App.tsx"] },
+  { slug: "/privacidad", priority: "0.3", changefreq: "yearly", src: ["src/App.tsx"] },
 ];
+
+const urls = pages
+  .map((p) =>
+    LOCALES.map((locale) => {
+      const loc = `${SITE}${pathOf(p.slug, locale)}`;
+      const alternates = [
+        ...LOCALES.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${SITE}${pathOf(p.slug, l)}"/>`),
+        `    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${pathOf(p.slug, "es")}"/>`,
+      ].join("\n");
+      return `  <url>\n    <loc>${loc}</loc>\n${alternates}\n    <lastmod>${lastmodOf(...p.src)}</lastmod><changefreq>${p.changefreq}</changefreq><priority>${p.priority}</priority>\n  </url>`;
+    }).join("\n"),
+  )
+  .join("\n");
 
 const xml =
   `<?xml version="1.0" encoding="UTF-8"?>\n` +
-  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  urls
-    .map(
-      (u) =>
-        `  <url><loc>${SITE}${u.path}</loc><lastmod>${lastmodOf(...u.src)}</lastmod><changefreq>${u.changefreq}</changefreq><priority>${u.priority}</priority></url>`,
-    )
-    .join("\n") +
+  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` +
+  urls +
   `\n</urlset>\n`;
 
 writeFileSync(outPath, xml, "utf8");
-console.log(`Sitemap generado: ${urls.length} URLs -> ${outPath}`);
+console.log(`Sitemap generado: ${pages.length * LOCALES.length} URLs -> ${outPath}`);

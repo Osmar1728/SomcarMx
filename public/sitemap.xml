@@ -1,7 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://somcar.mx/</loc><lastmod>2026-10-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://somcar.mx/contacto</loc><lastmod>2026-10-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://somcar.mx/terminos</loc><lastmod>2026-10-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://somcar.mx/privacidad</loc><lastmod>2026-10-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://somcar.mx/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/"/>
+    <lastmod>2026-10-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/en</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/"/>
+    <lastmod>2026-10-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/it</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/"/>
+    <lastmod>2026-10-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/contacto</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/contacto"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en/contacto"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it/contacto"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/contacto"/>
+    <lastmod>2026-10-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/en/contacto</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/contacto"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en/contacto"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it/contacto"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/contacto"/>
+    <lastmod>2026-10-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/it/contacto</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/contacto"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en/contacto"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it/contacto"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/contacto"/>
+    <lastmod>2026-10-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/terminos</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/terminos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en/terminos"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it/terminos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/terminos"/>
+    <lastmod>2026-10-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/en/terminos</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/terminos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en/terminos"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it/terminos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/terminos"/>
+    <lastmod>2026-10-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/it/terminos</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/terminos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en/terminos"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it/terminos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/terminos"/>
+    <lastmod>2026-10-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/privacidad</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/privacidad"/>
+    <lastmod>2026-10-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/en/privacidad</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/privacidad"/>
+    <lastmod>2026-10-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://somcar.mx/it/privacidad</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://somcar.mx/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://somcar.mx/en/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://somcar.mx/it/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://somcar.mx/privacidad"/>
+    <lastmod>2026-10-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority>
+  </url>
 </urlset>
