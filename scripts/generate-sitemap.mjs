@@ -25,12 +25,19 @@ function lastmodOf(...relPaths) {
 const LOCALES = ["es", "en", "it"];
 const pathOf = (slug, locale) => (locale === "es" ? slug || "/" : `/${locale}${slug}`);
 
-// Una sola fuente de verdad: misma lista de páginas que src/lib/router.ts.
+// Una sola fuente de verdad: mismas páginas que src/lib/router.ts + fichas de src/lib/fichas.ts.
 const pages = [
   { slug: "", priority: "1.0", changefreq: "weekly", src: ["index.html", "src/App.tsx", "src/main.tsx"] },
   { slug: "/contacto", priority: "0.9", changefreq: "monthly", src: ["src/App.tsx"] },
+  { slug: "/servicios", priority: "0.9", changefreq: "weekly", src: ["src/App.tsx", "src/lib/fichas.ts"] },
   { slug: "/terminos", priority: "0.3", changefreq: "yearly", src: ["src/App.tsx"] },
   { slug: "/privacidad", priority: "0.3", changefreq: "yearly", src: ["src/App.tsx"] },
+  ...["ejemplo-de-servicio-1", "ejemplo-de-servicio-2"].map((slug) => ({
+    slug: `/servicios/${slug}`,
+    priority: "0.8",
+    changefreq: "monthly",
+    src: ["src/App.tsx", "src/lib/fichas.ts"],
+  })),
 ];
 
 const urls = pages

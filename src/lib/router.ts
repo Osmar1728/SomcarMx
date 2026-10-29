@@ -1,29 +1,40 @@
 import { useEffect, useState } from "react";
+import { FICHAS } from "./fichas.ts";
 
 export const LOCALES = ["es", "en", "it"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "es";
 
-export type RouteName = "home" | "contacto" | "terminos" | "privacidad" | "notfound";
-export type Page = Exclude<RouteName, "notfound">;
+export type RouteName =
+  | "home"
+  | "contacto"
+  | "servicios"
+  | "ficha"
+  | "terminos"
+  | "privacidad"
+  | "notfound";
+export type StaticPage = Exclude<RouteName, "ficha" | "notfound">;
 
 export interface ParsedRoute {
   name: RouteName;
   locale: Locale;
+  param?: string;
 }
 
-const SLUGS: Record<Page, string> = {
+const SLUGS: Record<StaticPage, string> = {
   home: "",
   contacto: "/contacto",
+  servicios: "/servicios",
   terminos: "/terminos",
   privacidad: "/privacidad",
 };
 
 /** URL de una página en un idioma (es va sin prefijo: /contacto, en/it con prefijo: /en/contacto). */
-export function localize(name: Page, locale: Locale): string {
-  const slug = SLUGS[name];
-  if (locale === DEFAULT_LOCALE) return slug || "/";
-  return `/${locale}${slug}`;
+export function localize(name: RouteName, locale: Locale, param = ""): string {
+  const base =
+    name === "ficha" ? `/servicios/${param}` : (SLUGS[name as StaticPage] ?? "");
+  if (locale === DEFAULT_LOCALE) return base || "/";
+  return `/${locale}${base}`;
 }
 
 function normalizarPath(pathname: string): string {
@@ -42,8 +53,13 @@ export function parsePath(pathname: string): ParsedRoute {
     rest = clean.slice(m[0].length) || "/";
   }
 
+  if (rest === "/servicios") return { name: "servicios", locale };
+  if (rest.startsWith("/servicios/")) {
+    const slug = rest.slice("/servicios/".length).trim();
+    if (slug && !slug.includes("/")) return { name: "ficha", param: slug, locale };
+  }
   for (const [name, slug] of Object.entries(SLUGS)) {
-    if (rest === (slug || "/")) return { name: name as RouteName, locale };
+    if (name !== "servicios" && rest === (slug || "/")) return { name: name as RouteName, locale };
   }
   return { name: "notfound", locale };
 }
@@ -55,7 +71,9 @@ export function href(path: string): string {
 
 export function useRoute(): ParsedRoute {
   const [route, setRoute] = useState<ParsedRoute>(() =>
-    typeof window === "undefined" ? { name: "home", locale: DEFAULT_LOCALE } : parsePath(window.location.pathname),
+    typeof window === "undefined"
+      ? { name: "home", locale: DEFAULT_LOCALE }
+      : parsePath(window.location.pathname),
   );
 
   useEffect(() => {
@@ -87,6 +105,14 @@ export const PAGE_META: Record<Locale, Record<RouteName, { title: string; desc: 
       title: "Contacto | SOMCAR",
       desc: "Contáctanos: SOMCAR. Escríbenos y te respondemos a la brevedad.",
     },
+    servicios: {
+      title: "Servicios | SOMCAR",
+      desc: "Servicios de SOMCAR. Explora cada ficha y contáctanos.",
+    },
+    ficha: {
+      title: "Detalle | SOMCAR",
+      desc: "Ficha de servicio de SOMCAR.",
+    },
     terminos: {
       title: "Términos y condiciones | SOMCAR",
       desc: "Términos y condiciones del servicio de SOMCAR.",
@@ -109,6 +135,14 @@ export const PAGE_META: Record<Locale, Record<RouteName, { title: string; desc: 
       title: "Contact | SOMCAR",
       desc: "Contact us: SOMCAR. Send us a message and we'll get back to you shortly.",
     },
+    servicios: {
+      title: "Services | SOMCAR",
+      desc: "SOMCAR services. Browse each entry and get in touch.",
+    },
+    ficha: {
+      title: "Details | SOMCAR",
+      desc: "SOMCAR service entry.",
+    },
     terminos: {
       title: "Terms and conditions | SOMCAR",
       desc: "SOMCAR service terms and conditions.",
@@ -130,6 +164,14 @@ export const PAGE_META: Record<Locale, Record<RouteName, { title: string; desc: 
     contacto: {
       title: "Contatti | SOMCAR",
       desc: "Contattaci: SOMCAR. Scrivici e ti risponderemo al più presto.",
+    },
+    servicios: {
+      title: "Servizi | SOMCAR",
+      desc: "Servizi di SOMCAR. Sfoglia ogni scheda e contattaci.",
+    },
+    ficha: {
+      title: "Dettaglio | SOMCAR",
+      desc: "Scheda di servizio di SOMCAR.",
     },
     terminos: {
       title: "Termini e condizioni | SOMCAR",
@@ -185,23 +227,30 @@ function setHreflang(alternates: Record<string, string>) {
   }
 }
 
-/** Altern alternates hreflang de una página en los 3 idiomas + x-default (apunta al español). */
-export function pageAlternates(name: Page): Record<string, string> {
+/** Alternates hreflang de una página en los 3 idiomas + x-default (apunta al español). */
+export function pageAlternates(name: RouteName, param = ""): Record<string, string> {
   return {
-    es: `${SITE_URL}${localize(name, "es")}`,
-    en: `${SITE_URL}${localize(name, "en")}`,
-    it: `${SITE_URL}${localize(name, "it")}`,
-    "x-default": `${SITE_URL}${localize(name, "es")}`,
+    es: `${SITE_URL}${localize(name, "es", param)}`,
+    en: `${SITE_URL}${localize(name, "en", param)}`,
+    it: `${SITE_URL}${localize(name, "it", param)}`,
+    "x-default": `${SITE_URL}${localize(name, "es", param)}`,
   };
 }
 
-export function usePageMeta(name: RouteName, locale: Locale) {
+/** Título/descripción de una ficha según su slug e idioma (una sola fuente: FICHAS). */
+export function fichaMeta(slug: string, locale: Locale): { title: string; desc: string } {
+  const f = FICHAS.find((x) => x.slug === slug);
+  if (!f) return PAGE_META[locale].ficha;
+  return { title: `${f.datos[locale].nombre} | SOMCAR`, desc: f.datos[locale].resumen };
+}
+
+export function usePageMeta(name: RouteName, locale: Locale, param = "") {
   useEffect(() => {
-    const base = PAGE_META[locale][name];
+    const base = name === "ficha" ? fichaMeta(param, locale) : PAGE_META[locale][name];
     const path =
       name === "notfound"
         ? window.location.pathname.replace(/\/+$/, "") || "/"
-        : localize(name, locale);
+        : localize(name, locale, param);
     const canonical = `${SITE_URL}${path}`;
 
     document.title = base.title;
@@ -227,6 +276,6 @@ export function usePageMeta(name: RouteName, locale: Locale) {
     setMeta("name", "twitter:image:alt", base.title);
 
     setCanonical(canonical);
-    if (name !== "notfound") setHreflang(pageAlternates(name));
-  }, [name, locale]);
+    if (name !== "notfound") setHreflang(pageAlternates(name, param));
+  }, [name, locale, param]);
 }

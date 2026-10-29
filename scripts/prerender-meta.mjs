@@ -4,11 +4,12 @@
 // en dist/ con sus metas ya inyectadas (lang, título, descripción, canonical,
 // hreflang, OG). Apache sirve esos archivos directo (existen en disco);
 // el bundle React arranca igual encima, así que el humano no nota diferencia.
-// Fuente única de verdad: PAGE_META (sin duplicar textos).
+// Fuente única de verdad: PAGE_META + FICHAS (sin duplicar textos).
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { LOCALES, PAGE_META, SITE_URL, pageAlternates } from "../src/lib/router.ts";
+import { LOCALES, PAGE_META, SITE_URL, fichaMeta, pageAlternates } from "../src/lib/router.ts";
+import { FICHAS } from "../src/lib/fichas.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
@@ -29,9 +30,16 @@ const setHref = (html, rel, v, extra = "") =>
     `<link rel="${rel}"${extra} href="${v}" />`,
   );
 
+const STATIC_KEY = { "": "home", "/contacto": "contacto", "/servicios": "servicios", "/terminos": "terminos", "/privacidad": "privacidad" };
+const slugs = [...Object.keys(STATIC_KEY), ...FICHAS.map((f) => `/servicios/${f.slug}`)];
+
 function renderPage({ slug, locale }) {
   const path = locale === "es" ? slug || "/" : `/${locale}${slug}`;
-  const meta = PAGE_META[locale][slug === "" ? "home" : slug.slice(1)];
+  const meta = slug.startsWith("/servicios/")
+    ? fichaMeta(slug.slice("/servicios/".length), locale)
+    : PAGE_META[locale][STATIC_KEY[slug]];
+  const name = slug.startsWith("/servicios/") ? "ficha" : STATIC_KEY[slug];
+  const param = slug.startsWith("/servicios/") ? slug.slice("/servicios/".length) : "";
   const canonical = `${SITE_URL}${path}`;
   const image = `${SITE_URL}/og-cover.webp`;
   let html = template;
@@ -40,7 +48,7 @@ function renderPage({ slug, locale }) {
   html = setContent(html, "name", "description", meta.desc);
   html = setContent(html, "name", "keywords", "somcar");
   html = setHref(html, "canonical", canonical);
-  for (const [lang, url] of Object.entries(pageAlternates(slug === "" ? "home" : slug.slice(1)))) {
+  for (const [lang, url] of Object.entries(pageAlternates(name, param))) {
     html = setHref(html, "alternate", url, ` hreflang="${lang}"`);
   }
   html = setContent(html, "property", "og:title", meta.title);
@@ -61,7 +69,7 @@ function renderPage({ slug, locale }) {
 
 const done = [];
 for (const locale of LOCALES) {
-  for (const slug of ["", "/contacto", "/terminos", "/privacidad"]) {
+  for (const slug of slugs) {
     done.push(renderPage({ slug, locale }));
   }
 }

@@ -9,6 +9,11 @@
 - Italiano: https://somcar.mx/it (rutas /it/contacto, /it/terminos, /it/privacidad)
 - Las 3 versiones están enlazadas con hreflang (es/en/it + x-default → español).
 
+## Servicios
+
+- Índice: https://somcar.mx/servicios (/en/servicios, /it/servicios)
+- (Agrega aquí una línea por ficha con su URL /servicios/tu-slug.)
+
 ## Contacto
 
 - Contacto: https://somcar.mx/contacto
