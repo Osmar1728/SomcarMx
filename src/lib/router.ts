@@ -79,7 +79,7 @@ export function useRoute(): ParsedRoute {
   useEffect(() => {
     const onChange = () => {
       setRoute(parsePath(window.location.pathname));
-      window.scrollTo(0, 0);
+      scrollTop();
     };
     onChange();
     window.addEventListener("popstate", onChange);
@@ -92,6 +92,22 @@ export function useRoute(): ParsedRoute {
 export function navigate(path: string) {
   history.pushState(null, "", href(path));
   window.dispatchEvent(new PopStateEvent("popstate"));
+}
+
+// Lenis gestiona el scroll; el navegador restaura posición por defecto.
+
+// Instancia de Lenis registrada desde App: subir con su API, no con scroll nativo (Lenis lo sobrescribe).
+let lenisRef: { scrollTo: (value: number, options?: { immediate?: boolean }) => void } | null = null;
+
+export function setLenis(
+  instance: { scrollTo: (value: number, options?: { immediate?: boolean }) => void } | null,
+) {
+  lenisRef = instance;
+}
+
+function scrollTop() {
+  if (lenisRef) lenisRef.scrollTo(0, { immediate: true });
+  else window.scrollTo(0, 0);
 }
 
 // shortcut: textos neutros de arranque; reemplázalos con el copy real del negocio.

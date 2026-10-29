@@ -2,8 +2,11 @@ import Header from "./components/Header";
 import Link from "./components/Link";
 import HomePage from "./pages/Home";
 import { UI } from "./lib/ui";
-import { localize, usePageMeta, useRoute, type Locale, type StaticPage } from "./lib/router";
+import { localize, setLenis, usePageMeta, useRoute, type Locale, type StaticPage } from "./lib/router";
 import { FICHAS, getFicha } from "./lib/fichas";
+import { useEffect } from "react";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
 
 function Shell({ title, locale, switchPath, children }: { title: string; locale: Locale; switchPath: (l: Locale) => string; children: React.ReactNode }) {
   return (
@@ -83,6 +86,23 @@ function NotFound({ locale }: { locale: Locale }) {
 
 export default function App() {
   const route = useRoute();
+
+  useEffect(() => {
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    setLenis(lenis);
+    let raf = 0;
+    const loop = (time: number) => {
+      lenis.raf(time);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(raf);
+      lenis.destroy();
+      setLenis(null);
+    };
+  }, []);
+
   switch (route.name) {
     case "home":
       return <HomePage locale={route.locale} />;
