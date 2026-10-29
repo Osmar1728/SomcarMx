@@ -10,22 +10,39 @@ export interface Ficha {
   datos: Record<Locale, FichaDatos>;
 }
 
-// shortcut: sección de ejemplo. Renombra la base "/servicios" en router.ts y sustituye estas fichas por las reales.
 export const FICHAS: Ficha[] = [
   {
-    slug: "ejemplo-de-servicio-1",
+    slug: "renta-de-autos",
     datos: {
-      es: { nombre: "Servicio de ejemplo 1", resumen: "Resumen del servicio de ejemplo 1. Sustitúyelo por el real." },
-      en: { nombre: "Sample service 1", resumen: "Sample service 1 summary. Replace it with the real one." },
-      it: { nombre: "Servizio di esempio 1", resumen: "Riepilogo del servizio di esempio 1. Sostituiscilo con quello reale." },
+      es: {
+        nombre: "Renta de autos",
+        resumen: "Compactos, sedanes y vans en perfectas condiciones, sanitizadas y con seguro incluido. Desde $750 por día, sin tarjeta de crédito ni depósito.",
+      },
+      en: {
+        nombre: "Car rental",
+        resumen: "Compacts, sedans and vans in top condition, sanitized and with insurance included. From $750 MXN per day, no credit card or deposit.",
+      },
+      it: {
+        nombre: "Noleggio auto",
+        resumen: "Compatte, berline e van in perfette condizioni, sanificate e con assicurazione inclusa. Da $750 MXN al giorno, senza carta di credito né deposito.",
+      },
     },
   },
   {
-    slug: "ejemplo-de-servicio-2",
+    slug: "shuttle",
     datos: {
-      es: { nombre: "Servicio de ejemplo 2", resumen: "Resumen del servicio de ejemplo 2. Sustitúyelo por el real." },
-      en: { nombre: "Sample service 2", resumen: "Sample service 2 summary. Replace it with the real one." },
-      it: { nombre: "Servizio di esempio 2", resumen: "Riepilogo del servizio di esempio 2. Sostituiscilo con quello reale." },
+      es: {
+        nombre: "Shuttle / Transportación",
+        resumen: "Traslados aeropuerto-hotel en Cancún y la Riviera Maya, con asistencia 24/7 durante tu viaje.",
+      },
+      en: {
+        nombre: "Shuttle / Transportation",
+        resumen: "Airport-hotel transfers in Cancun and the Riviera Maya, with 24/7 assistance during your trip.",
+      },
+      it: {
+        nombre: "Navetta / Trasporti",
+        resumen: "Trasferimenti aeroporto-hotel a Cancún e in Riviera Maya, con assistenza 24/7 durante il viaggio.",
+      },
     },
   },
 ];

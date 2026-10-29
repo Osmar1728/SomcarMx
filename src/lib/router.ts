@@ -98,8 +98,8 @@ export function navigate(path: string) {
 export const PAGE_META: Record<Locale, Record<RouteName, { title: string; desc: string }>> = {
   es: {
     home: {
-      title: "SOMCAR | Sitio oficial",
-      desc: "Sitio oficial de SOMCAR. Conoce nuestros servicios y contáctanos.",
+      title: "Renta de autos en Cancún desde $750/día | SOMCAR",
+      desc: "Renta de autos en Cancún sin tarjeta de crédito ni depósito. Kilometraje ilimitado, seguro incluido y entrega 24/7 en aeropuerto, Cancún y Playa del Carmen.",
     },
     contacto: {
       title: "Contacto | SOMCAR",
@@ -128,8 +128,8 @@ export const PAGE_META: Record<Locale, Record<RouteName, { title: string; desc: 
   },
   en: {
     home: {
-      title: "SOMCAR | Official site",
-      desc: "SOMCAR official website. Explore our services and get in touch.",
+      title: "Car rental in Cancun from $750 MXN/day | SOMCAR",
+      desc: "Car rental in Cancun with no credit card or deposit. Unlimited mileage, insurance included and 24/7 pickup at the airport, Cancun and Playa del Carmen.",
     },
     contacto: {
       title: "Contact | SOMCAR",
@@ -158,8 +158,8 @@ export const PAGE_META: Record<Locale, Record<RouteName, { title: string; desc: 
   },
   it: {
     home: {
-      title: "SOMCAR | Sito ufficiale",
-      desc: "Sito ufficiale di SOMCAR. Scopri i nostri servizi e contattaci.",
+      title: "Noleggio auto a Cancún da $750 MXN/giorno | SOMCAR",
+      desc: "Noleggio auto a Cancún senza carta di credito né deposito. Chilometraggio illimitato, assicurazione inclusa e ritiro 24/7 in aeroporto, a Cancún e Playa del Carmen.",
     },
     contacto: {
       title: "Contatti | SOMCAR",

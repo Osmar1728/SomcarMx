@@ -1,6 +1,7 @@
 import { statSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { FICHAS } from "../src/lib/fichas.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outPath = join(root, "public", "sitemap.xml");
@@ -32,8 +33,8 @@ const pages = [
   { slug: "/servicios", priority: "0.9", changefreq: "weekly", src: ["src/App.tsx", "src/lib/fichas.ts"] },
   { slug: "/terminos", priority: "0.3", changefreq: "yearly", src: ["src/App.tsx"] },
   { slug: "/privacidad", priority: "0.3", changefreq: "yearly", src: ["src/App.tsx"] },
-  ...["ejemplo-de-servicio-1", "ejemplo-de-servicio-2"].map((slug) => ({
-    slug: `/servicios/${slug}`,
+  ...FICHAS.map((f) => ({
+    slug: `/servicios/${f.slug}`,
     priority: "0.8",
     changefreq: "monthly",
     src: ["src/App.tsx", "src/lib/fichas.ts"],

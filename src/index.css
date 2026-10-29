@@ -2,6 +2,12 @@
 
 @theme {
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Marca SOMCAR: azul caribe + naranja */
+  --color-primary: #0a3d7a;
+  --color-primary-dark: #072c58;
+  --color-accent: #f97316;
+  --color-accent-dark: #c2410c;
+  --color-base: #f6f7f9;
   /* Breakpoints: Cel S 320 · Cel M 375 · Cel L 425 · Tablet 768 · Laptop 1024 · Laptop L 1440+ */
   --breakpoint-xs: 320px;
   --breakpoint-ms: 375px;

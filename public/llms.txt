@@ -1,6 +1,6 @@
-# SOMCAR
+# SOMCAR — Soluciones Móviles del Caribe
 
-> Sitio oficial de SOMCAR. (Completa esta ficha con tu propuesta de valor, servicios y cobertura.)
+> Renta de autos en Cancún desde $750 MXN por día: sin tarjeta de crédito ni depósito, kilometraje ilimitado, impuestos y seguros incluidos, entrega 24/7 en aeropuerto, Cancún y Playa del Carmen. Shuttle y transportación en la Riviera Maya. WhatsApp +52 998 168 4805, contacto@somcar.mx.
 
 ## Idiomas
 
@@ -11,8 +11,9 @@
 
 ## Servicios
 
+- Renta de autos (compactos, sedanes y vans): https://somcar.mx/servicios/renta-de-autos
+- Shuttle / Transportación aeropuerto-hotel: https://somcar.mx/servicios/shuttle
 - Índice: https://somcar.mx/servicios (/en/servicios, /it/servicios)
-- (Agrega aquí una línea por ficha con su URL /servicios/tu-slug.)
 
 ## Contacto
 

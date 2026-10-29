@@ -1,117 +1,27 @@
-import type { MouseEvent, ReactNode } from "react";
-import { LOCALES, href, localize, navigate, usePageMeta, useRoute, type Locale, type StaticPage } from "./lib/router";
+import Header from "./components/Header";
+import Link from "./components/Link";
+import HomePage from "./pages/Home";
+import { UI } from "./lib/ui";
+import { localize, usePageMeta, useRoute, type Locale, type StaticPage } from "./lib/router";
 import { FICHAS, getFicha } from "./lib/fichas";
 
-const UI: Record<Locale, { nav: { page: StaticPage; label: string }[]; homeBody: string; contactCta: string; contactoBody: string; legalBody: string; notFoundBody: string; backTo: string }> = {
-  es: {
-    nav: [
-      { page: "home", label: "Inicio" },
-      { page: "servicios", label: "Servicios" },
-      { page: "contacto", label: "Contacto" },
-      { page: "terminos", label: "Términos" },
-      { page: "privacidad", label: "Privacidad" },
-    ],
-    homeBody: "Página de inicio. Reemplaza este contenido con el real.",
-    contactCta: "Contáctanos",
-    contactoBody: "Agrega aquí tu formulario o datos de contacto.",
-    legalBody: "Publica aquí el texto legal correspondiente.",
-    notFoundBody: "Vuelve al",
-    backTo: "inicio",
-  },
-  en: {
-    nav: [
-      { page: "home", label: "Home" },
-      { page: "servicios", label: "Services" },
-      { page: "contacto", label: "Contact" },
-      { page: "terminos", label: "Terms" },
-      { page: "privacidad", label: "Privacy" },
-    ],
-    homeBody: "Home page. Replace this content with the real one.",
-    contactCta: "Contact us",
-    contactoBody: "Add your contact form or contact details here.",
-    legalBody: "Publish the corresponding legal text here.",
-    notFoundBody: "Back to the",
-    backTo: "home page",
-  },
-  it: {
-    nav: [
-      { page: "home", label: "Home" },
-      { page: "servicios", label: "Servizi" },
-      { page: "contacto", label: "Contatti" },
-      { page: "terminos", label: "Termini" },
-      { page: "privacidad", label: "Privacy" },
-    ],
-    homeBody: "Pagina iniziale. Sostituisci questo contenuto con quello reale.",
-    contactCta: "Contattaci",
-    contactoBody: "Aggiungi qui il modulo o i dati di contatto.",
-    legalBody: "Pubblica qui il testo legale corrispondente.",
-    notFoundBody: "Torna alla",
-    backTo: "home page",
-  },
-};
-
-const H1: Record<Locale, Record<StaticPage, string>> = {
-  es: { home: "SOMCAR", contacto: "Contacto", servicios: "Servicios", terminos: "Términos y condiciones", privacidad: "Aviso de privacidad" },
-  en: { home: "SOMCAR", contacto: "Contact", servicios: "Services", terminos: "Terms and conditions", privacidad: "Privacy notice" },
-  it: { home: "SOMCAR", contacto: "Contatti", servicios: "Servizi", terminos: "Termini e condizioni", privacidad: "Informativa sulla privacy" },
-};
-
-function Link({ to, children }: { to: string; children: ReactNode }) {
-  const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    navigate(to);
-  };
+function Shell({ title, locale, switchPath, children }: { title: string; locale: Locale; switchPath: (l: Locale) => string; children: React.ReactNode }) {
   return (
-    <a href={href(to)} onClick={onClick} className="underline">
-      {children}
-    </a>
-  );
-}
-
-function Shell({ title, locale, switchPath, children }: { title: string; locale: Locale; switchPath: (l: Locale) => string; children: ReactNode }) {
-  const t = UI[locale];
-  return (
-    <div className="mx-auto max-w-3xl px-5 py-10">
-      <nav className="mb-8 flex flex-wrap gap-4 text-sm">
-        {t.nav.map((n) => (
-          <Link key={n.page} to={localize(n.page, locale)}>
-            {n.label}
-          </Link>
-        ))}
-        <span className="ml-auto flex gap-2" aria-label="Language">
-          {LOCALES.map((l) => (
-            <Link key={l} to={switchPath(l)}>
-              <span className={l === locale ? "font-semibold" : ""}>{l.toUpperCase()}</span>
-            </Link>
-          ))}
-        </span>
-      </nav>
-      <main>
-        <h1 className="text-3xl font-semibold">{title}</h1>
+    <div>
+      <Header locale={locale} switchPath={switchPath} />
+      <main className="mx-auto max-w-3xl px-5 py-10">
+        <h1 className="text-3xl font-extrabold tracking-tight text-[#0a3d7a]">{title}</h1>
         {children}
       </main>
     </div>
   );
 }
 
-function Home({ locale }: { locale: Locale }) {
-  usePageMeta("home", locale);
-  const t = UI[locale];
-  return (
-    <Shell title={H1[locale].home} locale={locale} switchPath={(l) => localize("home", l)}>
-      <p className="mt-4">{t.homeBody}</p>
-      <p className="mt-2">
-        <Link to={localize("contacto", locale)}>{t.contactCta}</Link>
-      </p>
-    </Shell>
-  );
-}
-
 function Contacto({ locale }: { locale: Locale }) {
   usePageMeta("contacto", locale);
   return (
-    <Shell title={H1[locale].contacto} locale={locale} switchPath={(l) => localize("contacto", l)}>
-      <p className="mt-4">{UI[locale].contactoBody}</p>
+    <Shell title={UI[locale].contactoTitle} locale={locale} switchPath={(l) => localize("contacto", l)}>
+      <p className="mt-4 text-slate-600">{UI[locale].contactoBody}</p>
     </Shell>
   );
 }
@@ -119,7 +29,7 @@ function Contacto({ locale }: { locale: Locale }) {
 function Servicios({ locale }: { locale: Locale }) {
   usePageMeta("servicios", locale);
   return (
-    <Shell title={H1[locale].servicios} locale={locale} switchPath={(l) => localize("servicios", l)}>
+    <Shell title={UI[locale].serviciosTitle} locale={locale} switchPath={(l) => localize("servicios", l)}>
       <ul className="mt-4 space-y-2">
         {FICHAS.map((f) => (
           <li key={f.slug}>
@@ -137,7 +47,7 @@ function Ficha({ locale, slug }: { locale: Locale; slug: string }) {
   if (!f) return <NotFound locale={locale} />;
   return (
     <Shell title={f.datos[locale].nombre} locale={locale} switchPath={(l) => localize("ficha", l, slug)}>
-      <p className="mt-4">{f.datos[locale].resumen}</p>
+      <p className="mt-4 text-slate-600">{f.datos[locale].resumen}</p>
       <p className="mt-2">
         <Link to={localize("contacto", locale)}>{UI[locale].contactCta}</Link>
       </p>
@@ -148,8 +58,8 @@ function Ficha({ locale, slug }: { locale: Locale; slug: string }) {
 function Legal({ name, locale }: { name: "terminos" | "privacidad"; locale: Locale }) {
   usePageMeta(name, locale);
   return (
-    <Shell title={H1[locale][name]} locale={locale} switchPath={(l) => localize(name, l)}>
-      <p className="mt-4">{UI[locale].legalBody}</p>
+    <Shell title={UI[locale][name === "terminos" ? "terminosTitle" : "privacidadTitle"]} locale={locale} switchPath={(l) => localize(name, l)}>
+      <p className="mt-4 text-slate-600">{UI[locale].legalBody}</p>
     </Shell>
   );
 }
@@ -162,16 +72,12 @@ const PAGE_NOT_FOUND: Record<Locale, string> = {
 
 function NotFound({ locale }: { locale: Locale }) {
   usePageMeta("notfound", locale);
-  const t = UI[locale];
   return (
-    <div className="mx-auto max-w-3xl px-5 py-10">
-      <main>
-        <h1 className="text-3xl font-semibold">{PAGE_NOT_FOUND[locale]}</h1>
-        <p className="mt-4">
-          {t.notFoundBody} <Link to={localize("home", locale)}>{t.backTo}</Link>.
-        </p>
-      </main>
-    </div>
+    <Shell title={PAGE_NOT_FOUND[locale]} locale={locale} switchPath={(l) => localize("home", l)}>
+      <p className="mt-4 text-slate-600">
+        {UI[locale].notFoundBody} <Link to={localize("home", locale)}>{UI[locale].backTo}</Link>.
+      </p>
+    </Shell>
   );
 }
 
@@ -179,7 +85,7 @@ export default function App() {
   const route = useRoute();
   switch (route.name) {
     case "home":
-      return <Home locale={route.locale} />;
+      return <HomePage locale={route.locale} />;
     case "contacto":
       return <Contacto locale={route.locale} />;
     case "servicios":
@@ -194,3 +100,5 @@ export default function App() {
       return <NotFound locale={route.locale} />;
   }
 }
+
+export type { StaticPage };
