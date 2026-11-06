@@ -1,12 +1,12 @@
 # SOMCAR — Soluciones Móviles del Caribe
 
-> Renta de autos en Cancún desde $750 MXN por día: sin tarjeta de crédito ni depósito, kilometraje ilimitado, impuestos y seguros incluidos, entrega 24/7 en aeropuerto, Cancún y Playa del Carmen. Shuttle y transportación en la Riviera Maya. WhatsApp +52 998 168 4805, contacto@somcar.mx.
+> Renta de autos en Cancún desde $750 MXN por día: sin tarjeta de crédito ni depósito, kilometraje ilimitado, impuestos y seguros incluidos, entrega 24/7 en aeropuerto CUN/Tulum, ADO, Puerto Morelos, Playa del Carmen, Tulum, Valladolid. Shuttle y transportación. 9 años de experiencia. WhatsApp +52 998 168 4805, contacto@somcar.mx.
 
 ## Idiomas
 
 - Español (default, sin prefijo): https://somcar.mx/
-- English: https://somcar.mx/en (rutas /en/contacto, /en/terminos, /en/privacidad)
-- Italiano: https://somcar.mx/it (rutas /it/contacto, /it/terminos, /it/privacidad)
+- English: https://somcar.mx/en (rutas /en/cotizador, /en/ruta, /en/nosotros, /en/contacto, /en/servicios, /en/terminos, /en/privacidad)
+- Italiano: https://somcar.mx/it (rutas /it/cotizador, /it/ruta, /it/nosotros, /it/contacto, /it/servicios, /it/terminos, /it/privacidad)
 - Las 3 versiones están enlazadas con hreflang (es/en/it + x-default → español).
 
 ## Servicios
@@ -15,31 +15,35 @@
 - Shuttle / Transportación aeropuerto-hotel: https://somcar.mx/servicios/shuttle
 - Índice: https://somcar.mx/servicios (/en/servicios, /it/servicios)
 
+## Cotizador — nuevo
+
+- Cotizador 4 pasos Lexor (lugar + hora juntos, sin precio): https://somcar.mx/cotizador
+- 9 ubicaciones: Aeropuerto CUN, Aeropuerto Tulum (TQO), ADO Cancún, Puerto Morelos, Playa del Carmen, Tulum, Valladolid, Dentro de la ciudad, Otros
+- Reserva por WhatsApp con mensaje prellenado o por Email contacto@somcar.mx
+
+## Ruta — nuevo
+
+- Ruta 90km Cancún → Tulum sin prisa: https://somcar.mx/ruta
+- 5 paradas (Cancún, Puerto Morelos, Playa del Carmen, Akumal, Tulum) con mapa pirata que se pinta al hacer scroll, carrusel infinito sin tope, 3 imágenes por parada (cenote-default como placeholder)
+- Video hero: hotelera → cenote → atardecer en loop (public/video/hero-*.mp4)
+
+## Nosotros — nuevo
+
+- Nosotros 9 años: https://somcar.mx/nosotros
+- Historia real + 6 valores (9 años, excelentes precios, km ilimitado, 24/7, múltiples puntos, Pet Friendly) y #RentaUnAutoConSOMCAR
+
 ## Contacto
 
 - Contacto: https://somcar.mx/contacto
-- (Agrega aquí teléfono, correo y horario.)
-
-## Servicios
-
-- (Lista tus servicios con una línea cada uno.)
-- Detalle: https://somcar.mx/
-
-## Cobertura
-
-- (Describe tu cobertura o zona de servicio.)
-
-## Proceso
-
-1. (Paso 1: cómo te contactan.)
-2. (Paso 2: cómo cotizas o atiendes.)
-3. (Paso 3: cómo entregas o cierras.)
-
-## Preguntas frecuentes
-
-(Traslada aquí las preguntas que respondas en el home: una línea por tema.)
+- Teléfono/WhatsApp: +52 998 168 4805
+- Email: contacto@somcar.mx
+- Cobertura: Cancún, Puerto Morelos, Playa del Carmen, Akumal, Tulum, Valladolid, Aeropuerto CUN/TQO
 
 ## Legal
 
 - Términos y condiciones: https://somcar.mx/terminos
 - Aviso de privacidad (LFPDPPP): https://somcar.mx/privacidad
+
+## Sitemap
+
+- https://somcar.mx/sitemap.xml — 30 URLs (10 slugs ×3 idiomas: home, cotizador, ruta, nosotros, contacto, servicios, 2 fichas, terminos, privacidad)
