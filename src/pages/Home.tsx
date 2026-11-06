@@ -1,190 +1,526 @@
+import { useEffect } from "react";
 import Header from "../components/Header";
 import Link from "../components/Link";
 import { HOME, TESTIMONIOS, WHATSAPP_URL, PHONE_LABEL, EMAIL } from "../lib/home";
 import { FICHAS } from "../lib/fichas";
 import { localize, usePageMeta, type Locale } from "../lib/router";
 
-function Eyebrow({ children }: { children: string }) {
-  return <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#f97316]">{children}</p>;
-}
-
-function SectionTitle({ title, sub, dark }: { title: string; sub: string; dark?: boolean }) {
-  return (
-    <div className="mx-auto max-w-2xl text-center">
-      <h2 className={`mt-1 text-3xl font-extrabold tracking-tight short:text-2xl sm:text-4xl ${dark ? "text-white" : "text-[#0a3d7a]"}`}>{title}</h2>
-      <p className={`mt-2 text-[15px] short:mt-1 short:text-sm ${dark ? "text-white/75" : "text-slate-600"}`}>{sub}</p>
-    </div>
-  );
-}
-
 export default function HomePage({ locale }: { locale: Locale }) {
   usePageMeta("home", locale);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.querySelectorAll("video").forEach((v) => v.pause());
+      return;
+    }
+    const v = document.getElementById("hero-video") as HTMLVideoElement | null;
+    if (!v) return;
+    const playlist = ["/video/hero-riviera.mp4", "/video/hero-cenote.mp4", "/video/hero-sunset.mp4"];
+    let idx = 0;
+    const next = () => {
+      idx = (idx + 1) % playlist.length;
+      v.src = playlist[idx];
+      v.play().catch(() => {});
+    };
+    v.addEventListener("ended", next);
+    return () => v.removeEventListener("ended", next);
+  }, []);
   const t = HOME[locale];
   const switchPath = (l: Locale) => localize("home", l);
 
   return (
-    <div>
+    <div className="bg-[var(--color-cream)] text-[var(--color-ink)]">
       <Header locale={locale} switchPath={switchPath} />
 
-      {/* HERO — pantalla completa en laptop */}
-      <section id="inicio" className="fill-screen relative flex min-h-svh flex-col justify-center overflow-hidden bg-[#072c58] pb-10 pt-[96px] text-white max-sm:pb-8 max-sm:pt-20 sm:pt-[104px]">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[#f97316]/20 blur-3xl" aria-hidden="true" />
-        <div className="pointer-events-none absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-[#0a3d7a] blur-3xl" aria-hidden="true" />
-        <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
-          <Eyebrow>{t.kicker}</Eyebrow>
-          <h1 className="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight max-sm:mt-4 ms:text-5xl sm:text-6xl lg:text-[68px]">
-            {locale === "es" ? "Renta de autos en Cancún" : locale === "en" ? "Car rental in Cancun" : "Noleggio auto a Cancún"}
-          </h1>
-          <p className="mt-5 max-w-xl text-base text-white/80 sm:text-lg">{t.heroSub}</p>
-          <div className="mt-7 flex flex-wrap gap-3 max-sm:mt-5">
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="rounded-xl bg-[#f97316] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#c2410c]">
-              {t.ctaBook}
-            </a>
-            <Link to={localize("servicios", locale)} className="rounded-xl border border-white/30 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-white/10">
-              {t.ctaServices}
-            </Link>
-          </div>
-          <div className="mt-7 grid max-w-lg grid-cols-3 gap-4 border-t border-white/15 pt-6 max-sm:mt-5 max-sm:pt-5 ms:gap-6">
-            <div>
-              <p className="text-xl font-extrabold text-[#f97316] sm:text-2xl">{t.price}</p>
-              <p className="mt-1 text-xs text-white/70">{t.priceNote}</p>
+      {/* HERO — full screen + video fondo Riviera: hotelera → cenote → atardecer */}
+      <section className="fill-screen relative flex flex-col justify-center overflow-hidden pb-8 pt-[72px] xs:pb-10 xs:pt-[76px] ms:pt-[80px] ml:pt-[84px] md:pb-10 md:pt-[88px] lg:pb-10 lg:pt-[96px] laptop-l:py-12">
+        {/* VIDEO fondo — secuencia: hotelera → cenote → atardecer (grabado con stock Pexels, reemplazar con tu grabación) */}
+        <video
+          id="hero-video"
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          playsInline
+          preload="metadata"
+          poster="/video/hero-poster.jpg"
+          aria-hidden="true"
+        >
+          <source src="/video/hero-riviera.mp4" type="video/mp4" />
+        </video>
+        {/* overlay para legibilidad — naranja/azul no compite con video */}
+        <div className="absolute inset-0 bg-[var(--color-cream)]/78 backdrop-blur-[1px] md:bg-[var(--color-cream)]/72" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-[var(--color-cream)]" aria-hidden />
+
+        <div className="relative mx-auto grid w-full max-w-[1440px] grid-cols-12 gap-5 px-5 xs:gap-6 xs:px-5 ms:px-6 ml:px-6 md:gap-6 md:px-8 lg:gap-6 lg:px-8 laptop-l:gap-8">
+          {/* Copy */}
+          <div className="col-span-12 lg:col-span-7">
+            <p className="mono inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] font-bold tracking-[0.14em]">
+              <span className="h-2 w-2 rounded-full bg-[var(--color-coral)]" />
+              {t.kicker}
+            </p>
+
+            <h1 className="display mt-5 text-[38px] xs:text-[42px] ms:text-[46px] ml:text-[50px] md:text-[58px] lg:text-[72px] laptop-l:text-[78px]">
+              {locale === "es" ? (
+                <>
+                  Cancún
+                  <br />
+                  <span className="font-light italic tracking-[-0.05em]">es tuyo.</span>
+                </>
+              ) : locale === "en" ? (
+                <>
+                  Cancún
+                  <br />
+                  <span className="font-light italic">is yours.</span>
+                </>
+              ) : (
+                <>
+                  Cancún
+                  <br />
+                  <span className="font-light italic">è tua.</span>
+                </>
+              )}
+            </h1>
+
+            <p className="mt-4 max-w-[48ch] text-[16px] leading-relaxed text-black/60 sm:text-[18px]">{t.heroSub}</p>
+            <p className="mt-3 max-w-[52ch] text-[13px] leading-relaxed text-black/45">
+              {locale === "es"
+                ? "La Riviera no se visita en tour. Se maneja. Playa a las 8, cenote a las 11, Tulum al atardecer."
+                : locale === "en"
+                  ? "The Riviera isn’t a tour. You drive it. Beach at 8, cenote at 11, Tulum at sunset."
+                  : "La Riviera non è un tour. Si guida. Spiaggia alle 8, cenote alle 11, Tulum al tramonto."}
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link to={localize("cotizador", locale)} className="group inline-flex items-center gap-3 rounded-full bg-[var(--color-accent)] px-7 py-4 text-[15px] font-extrabold tracking-[-0.01em] text-white shadow-[0_10px_24px_rgba(249,115,22,0.28)] transition hover:translate-y-[-2px] hover:bg-[var(--color-accent-dark)] hover:shadow-[0_16px_32px_rgba(249,115,22,0.36)]">
+                {locale === "es" ? "Cotizar ahora" : locale === "en" ? "Get quote" : "Richiedi preventivo"}
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-black transition group-hover:translate-x-0.5">→</span>
+              </Link>
             </div>
-            {t.stats.slice(0, 2).map((s) => (
-              <div key={s.titulo}>
-                <p className="text-xl font-extrabold sm:text-2xl">{s.titulo}</p>
-                <p className="mt-1 text-xs text-white/70">{s.texto}</p>
+
+            {/* Proof bar — no cuadrado, pills con rotación leve */}
+            <div className="mt-8 flex flex-wrap gap-2">
+              <span className="pill inline-flex items-center gap-2 bg-white px-4 py-2 text-[13px] font-bold shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-[var(--color-lime)]" /> {t.price}
+                <span className="font-normal text-black/50">· {t.priceNote}</span>
+              </span>
+              {t.stats.map((s) => (
+                <span key={s.titulo} className="pill inline-flex items-center gap-1.5 border border-black/10 bg-[var(--color-cream)] px-4 py-2 text-[13px]">
+                  <strong>{s.titulo}</strong>
+                  <span className="text-black/50">{s.texto}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Booking island — con hover + mapa pirata */}
+          <div className="col-span-12 lg:col-span-5">
+            <div className="group relative mx-auto max-w-[420px] transition duration-500 hover:-translate-y-1 lg:ml-auto">
+              {/* floating badge */}
+              <div className="absolute -right-2 -top-3 z-10 rotate-3 rounded-2xl bg-[var(--color-coral)] px-3 py-2 text-[11px] font-bold tracking-[0.08em] text-white shadow-lg transition group-hover:rotate-0 group-hover:scale-105 sm:right-0">
+                {locale === "es" ? "SIN TARJETA • SIN DEPÓSITO" : "NO CARD • NO DEPOSIT"}
+              </div>
+
+              <div className="blob-soft relative overflow-hidden border border-black/10 bg-white p-5 shadow-[0_20px_60px_rgba(11,15,26,0.12)] transition duration-500 group-hover:shadow-[0_28px_80px_rgba(11,15,26,0.18)] group-hover:border-black/15 sm:p-6">
+                <div className="mono flex items-center justify-between text-[10px] font-bold tracking-[0.14em] text-black/40">
+                  <span>COTIZA EN 30 SEG • WHATSAPP</span>
+                  <span className="rounded-full bg-[var(--color-lime)] px-2 py-1 text-black transition group-hover:bg-[var(--color-accent-dark)] group-hover:text-white">24/7</span>
+                </div>
+
+                {/* Mapa pirata — pergamino, brújula y tesoro */}
+                <div className="relative mt-4 overflow-hidden rounded-[20px] border border-[#d8c9a5] bg-[#fdf6e3] p-4 text-[#3b2f1a] shadow-inner">
+                  {/* textura pergamino */}
+                  <div className="pointer-events-none absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E\")" }} aria-hidden />
+                  {/* bordes quemados */}
+                  <div className="pointer-events-none absolute inset-0 rounded-[20px] border border-[#c9b896] opacity-60" aria-hidden />
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="mono text-[10px] tracking-[0.16em] text-[#8a7355]">MAPA PIRATA • RIVIERA MAYA</p>
+                      <p className="display mt-1 text-[19px] leading-none text-[#1a1205]">90 km de tesoros</p>
+                      <p className="mono mt-1 text-[10px] text-[#8a7355]">Cancún → Tulum en 1:30h</p>
+                    </div>
+                    {/* brújula */}
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#c9b896] bg-white text-[#3b2f1a] shadow-sm transition duration-500 group-hover:rotate-45">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+                        <circle cx="12" cy="12" r="8" />
+                        <path d="M12 2 L13.5 9 L12 12 L10.5 9 Z" fill="currentColor" />
+                        <path d="M12 22 L10.5 15 L12 12 L13.5 15 Z" opacity="0.35" />
+                        <path d="M2 12 L9 10.5 L12 12 L9 13.5 Z" opacity="0.35" />
+                        <path d="M22 12 L15 13.5 L12 12 L15 10.5 Z" opacity="0.35" />
+                      </svg>
+                    </span>
+                  </div>
+
+                  {/* ruta tesoro — siempre moviéndose */}
+                  <svg viewBox="0 0 360 90" className="mt-4 h-[84px] w-full" aria-hidden>
+                    <path
+                      d="M12 72 C 70 14, 130 18, 178 48 S 270 88, 348 28"
+                      fill="none"
+                      stroke="#8a5a1f"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeDasharray="7 7"
+                      opacity="0.9"
+                      style={{ animation: "dash 1.1s linear infinite" }}
+                    />
+                    {/* puntos tesoro */}
+                    <g className="transition duration-500 group-hover:scale-[1.03]" style={{ transformOrigin: "180px 45px" }}>
+                      <text x="10" y="58" fontSize="14" textAnchor="middle">⚓</text>
+                      <text x="108" y="18" fontSize="11">✦</text>
+                      <text x="183" y="42" fontSize="12">◎</text>
+                      <text x="263" y="70" fontSize="11">⬢</text>
+                      <text x="342" y="22" fontSize="14">✕</text>
+                    </g>
+                  </svg>
+                  <div className="mono flex justify-between px-1 text-[8px] font-bold tracking-[0.1em] text-[#6b5a3a]">
+                    <span>CANCÚN</span>
+                    <span>P.MORELOS</span>
+                    <span>PLAYA</span>
+                    <span>AKUMAL</span>
+                    <span>TULUM ✕</span>
+                  </div>
+                  <p className="mono mt-2 text-center text-[9px] tracking-[0.1em] text-[#8a7355]">— SIGUE LA RUTA · CADA X UN TESORO —</p>
+                </div>
+
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  <div className="rounded-2xl bg-[var(--color-cream)] p-3 text-center">
+                    <p className="text-[11px] font-bold tracking-[0.08em]">Aeropuerto</p>
+                    <p className="mono text-[11px] text-black/50">CUN 06 min</p>
+                  </div>
+                  <div className="rounded-2xl bg-[var(--color-ink)] p-3 text-center text-white">
+                    <p className="text-[11px] font-bold">Kilometraje</p>
+                    <p className="mono text-[11px] text-white/60">Ilimitado</p>
+                  </div>
+                  <div className="rounded-2xl border border-black/10 bg-white p-3 text-center">
+                    <p className="text-[11px] font-bold">Pet Friendly</p>
+                    <p className="mono text-[11px] text-black/50">Consulta</p>
+                  </div>
+                </div>
+
+                <p className="mono mt-3 text-center text-[10px] leading-relaxed text-black/40">Sin letras chicas. Entrega donde estés.</p>
+              </div>
+
+              {/* shadow blob */}
+              <div className="pointer-events-none absolute -bottom-6 left-6 right-6 -z-10 h-10 rounded-[32px] bg-black/10 blur-xl" aria-hidden />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MARQUEE — destinos, rompe la cuadrícula */}
+      <div className="overflow-hidden border-y border-black/10 bg-[var(--color-lime)] py-3">
+        <div className="mono flex animate-[marquee_22s_linear_infinite] whitespace-nowrap text-[12px] font-bold tracking-[0.14em]">
+          <span className="mx-6">CANCÚN • PLAYA DEL CARMEN • PUERTO MORELOS • CENOTE • AKUMAL • TULUM • AEROPUERTO CUN •</span>
+          <span className="mx-6" aria-hidden>
+            CANCÚN • PLAYA DEL CARMEN • PUERTO MORELOS • CENOTE • AKUMAL • TULUM • AEROPUERTO CUN •
+          </span>
+          <span className="mx-6" aria-hidden>
+            CANCÚN • PLAYA DEL CARMEN • PUERTO MORELOS • CENOTE • AKUMAL • TULUM • AEROPUERTO CUN •
+          </span>
+        </div>
+      </div>
+
+      {/* RENTAR FÁCIL — tu anterior con imagen (que te gustaba) */}
+      <section className="mx-auto max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <h2 className="display max-w-[14ch] text-[32px] sm:text-[42px]">{t.benefitsTitle}</h2>
+          <p className="max-w-[36ch] text-[14px] leading-relaxed text-black/60">{t.benefitsSub} — sin tour, a tu ritmo.</p>
+        </div>
+
+        <div className="mt-8 grid grid-cols-12 gap-4">
+          <div className="col-span-12 overflow-hidden rounded-[28px] bg-black lg:col-span-4 lg:row-span-2">
+            <div className="relative h-[280px] lg:h-full lg:min-h-[440px]">
+              <img src="/img/cenote-default.jpg" alt="Riviera Maya cenote" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+              <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[11px] font-bold">DESDE $750</span>
+              <div className="absolute bottom-4 left-4 right-4">
+                <p className="text-[13px] font-bold leading-tight text-white">Imagen genérica — tu multimedia</p>
+                <p className="mono mt-1 text-[11px] text-white/70">Reemplaza por tu foto de Riviera</p>
+              </div>
+            </div>
+          </div>
+
+          <article className="col-span-12 flex flex-col gap-3 rounded-[28px] bg-[var(--color-ink)] p-6 text-white sm:col-span-6 lg:col-span-4">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-lime)] text-black">✓</span>
+            <h3 className="text-[17px] font-bold leading-tight">{t.benefits[0].titulo}</h3>
+            <p className="text-[13px] leading-relaxed text-white/70">{t.benefits[0].texto}</p>
+          </article>
+
+          <article className="col-span-12 flex flex-col gap-2 rounded-[28px] border border-black/10 bg-white p-6 sm:col-span-6 lg:col-span-4">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-teal)] text-black">∞</span>
+            <h3 className="text-[17px] font-bold">{t.benefits[1].titulo}</h3>
+            <p className="text-[13px] leading-relaxed text-black/60">{t.benefits[1].texto}</p>
+          </article>
+
+          <article className="col-span-12 flex flex-col gap-2 rounded-[28px] bg-[var(--color-cream)] p-6 sm:col-span-6 lg:col-span-4">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-ink)] text-white">24</span>
+            <h3 className="text-[17px] font-bold">{t.benefits[2].titulo}</h3>
+            <p className="text-[13px] leading-relaxed text-black/60">{t.benefits[2].texto}</p>
+          </article>
+
+          <article className="col-span-12 flex flex-col gap-2 rounded-[28px] bg-[var(--color-lime)] p-6 sm:col-span-6 lg:col-span-4">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-black text-white">0</span>
+            <h3 className="text-[17px] font-bold">{t.benefits[3].titulo}</h3>
+            <p className="text-[13px] leading-relaxed text-black/70">{t.benefits[3].texto}</p>
+            <p className="mono mt-auto text-[11px] font-bold tracking-[0.08em]">PAGA COMO QUIERAS →</p>
+          </article>
+        </div>
+      </section>
+
+      {/* INFO AÑADIDA de tu captura — sin Covid, como extra debajo */}
+      <section className="relative overflow-hidden bg-[#0a1930]">
+        <img src="/img/cenote-default.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-[0.14]" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a1930]/50 to-[#0a1930]" />
+        <div className="relative mx-auto max-w-[1440px] px-5 py-10 sm:px-6 lg:px-8">
+          <h2 className="text-center text-[22px] font-extrabold tracking-tight text-white sm:text-[26px]">Satisfacción Garantizada</h2>
+          <div className="mx-auto mt-5 grid max-w-[720px] grid-cols-2 gap-4 sm:grid-cols-4">
+            {[
+              { title: "Sin tarjeta de crédito", icon: "◫" },
+              { title: "Distintas formas de pago", icon: "$" },
+              { title: "Cobertura amplia de seguro", icon: "♡" },
+              { title: "Pet-Friendly", icon: "🐾" },
+            ].map((b) => (
+              <div key={b.title} className="text-center">
+                <span className="mx-auto grid h-8 w-8 place-items-center rounded-full bg-white/10 text-[14px] text-white">{b.icon}</span>
+                <p className="mono mt-2 text-[11px] font-bold leading-tight tracking-[0.06em] text-white">{b.title}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* BENEFICIOS — carrusel en móvil, grid desde sm */}
-      <section className="fill-screen flex flex-col justify-center bg-white py-16 sm:py-20 lg:py-10">
-        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
-          <SectionTitle title={t.benefitsTitle} sub={t.benefitsSub} />
-          <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 short:mt-5 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden">
-            {t.benefits.map((b) => (
-              <article key={b.titulo} className="flex min-w-[80%] snap-center flex-col rounded-2xl border border-slate-200 bg-[#f6f7f9] p-5 short:p-4 sm:min-w-0">
-                <span className="flex h-11 w-11 short:h-9 short:w-9 items-center justify-center rounded-xl bg-[#0a3d7a] text-lg font-extrabold text-white">✓</span>
-                <h3 className="mt-3 short:mt-2 text-[15px] short:text-sm font-bold leading-snug text-[#0a3d7a]">{b.titulo}</h3>
-                <p className="mt-1.5 short:mt-1 text-sm short:text-[13px] text-slate-600">{b.texto}</p>
-              </article>
-            ))}
+      <section className="bg-white py-12 sm:py-16">
+        <div className="mx-auto max-w-[1040px] px-5 sm:px-6">
+          <div className="overflow-hidden rounded-[24px] bg-[#2d3bff] p-8 text-white shadow-[0_20px_60px_rgba(45,59,255,0.25)] sm:p-10">
+            <h2 className="text-center text-[22px] font-extrabold leading-tight sm:text-[26px]">Rentar un auto en Cancun<br />núnca ha sido tan fácil.</h2>
+            <div className="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-6">
+              <div className="text-center">
+                <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-white/15 text-white">24</span>
+                <p className="mt-4 text-[13px] font-bold">Asistencia 24/7</p>
+                <p className="mono mt-1 text-[11px] leading-relaxed text-white/70">Soporte cuando lo necesites.</p>
+                <a href="tel:+529981684805" className="mono mt-4 inline-flex rounded-full bg-white/15 px-4 py-2 text-[11px] font-bold text-white hover:bg-white hover:text-[#2d3bff]">
+                  +52 (998)168 4805
+                </a>
+              </div>
+              <div className="text-center">
+                <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-white/15 text-white">◫</span>
+                <p className="mt-4 text-[13px] font-bold">Sin tarjeta de crédito</p>
+                <p className="mono mt-1 text-[11px] leading-relaxed text-white/70">Unidades sin depósito.</p>
+              </div>
+              <div className="text-center">
+                <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-white/15 text-white">◐</span>
+                <p className="mt-4 text-[13px] font-bold">Pregunta por nuestras promociones</p>
+                <p className="mono mt-1 text-[11px] leading-relaxed text-white/70">Vigentes esta temporada.</p>
+                <a
+                  href="https://wa.me/529981684805?text=Hola%20SOMCAR%2C%20quiero%20saber%20sobre%20sus%20promociones%20vigentes%20para%20renta%20en%20Canc%C3%BAn"
+                  target="_blank"
+                  rel="noopener"
+                  className="mono mt-4 inline-flex rounded-full bg-white px-5 py-2 text-[11px] font-bold text-[#2d3bff] hover:bg-black hover:text-white"
+                >
+                  Ver promociones
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SERVICIOS — fichas desde datos */}
-      <section className="fill-screen flex flex-col justify-center bg-[#f6f7f9] py-16 sm:py-20 lg:py-10">
-        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
-          <SectionTitle title={t.servicesTitle} sub={t.servicesSub} />
-          <div className="mt-8 grid grid-cols-1 gap-4 short:mt-5 sm:gap-5 ms:grid-cols-2 lg:gap-6">
-            {FICHAS.map((f) => (
-              <Link key={f.slug} to={localize("ficha", locale, f.slug)} className="group rounded-2xl border border-slate-200 bg-white p-6 short:p-4 transition hover:-translate-y-1 hover:border-[#f97316] hover:shadow-[0_12px_28px_rgba(10,61,122,0.12)]">
-                <h3 className="text-xl font-extrabold text-[#0a3d7a] group-hover:text-[#f97316]">{f.datos[locale].nombre}</h3>
-                <p className="mt-2 text-sm text-slate-600">{f.datos[locale].resumen}</p>
-              </Link>
-            ))}
+      {/* ¿A DÓNDE QUIERES IR? — muy llamativo, lleva a /ruta */}
+      <section className="relative overflow-hidden bg-[var(--color-ink)] py-12 text-white sm:py-16">
+        <img src="/img/cenote-default.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-[0.08]" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-ink)] via-[var(--color-ink)]/90 to-[var(--color-ink)]" />
+        <div className="relative mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="mono inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-bold tracking-[0.14em] text-[var(--color-lime)]">
+                <span className="h-2 w-2 rounded-full bg-[var(--color-lime)] animate-pulse" /> LA RIVIERA EN 90 KM
+              </p>
+              <h2 className="display mt-3 text-[30px] sm:text-[44px]">{t.destTitle}</h2>
+              <p className="mt-2 max-w-[40ch] text-[14px] leading-relaxed text-white/60">{t.destSub} En auto, sin van y sin prisa.</p>
+            </div>
+            <Link to={localize("ruta", locale)} className="mono hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-[11px] font-bold text-black hover:bg-[var(--color-lime)] sm:inline-flex">
+              Ver ruta completa →
+            </Link>
           </div>
+
+          <div className="mt-8 overflow-hidden">
+            <div className="flex w-max animate-[carousel_28s_linear_infinite] gap-4 sm:gap-5 lg:gap-6">
+              {[
+                { place: "Cancún", km: "0 km", time: "Salida", do: "Playa + mercado 28" },
+                { place: "Puerto Morelos", km: "36 km", time: "28 min", do: "Snorkel en arrecife" },
+                { place: "Playa del Carmen", km: "68 km", time: "55 min", do: "Cenote + 5ta Av" },
+                { place: "Akumal", km: "84 km", time: "1h 10m", do: "Nado con tortugas" },
+                { place: "Tulum", km: "122 km", time: "1h 30m", do: "Ruinas + laguna" },
+                { place: "Cancún", km: "0 km", time: "Salida", do: "Playa + mercado 28" },
+                { place: "Puerto Morelos", km: "36 km", time: "28 min", do: "Snorkel en arrecife" },
+                { place: "Playa del Carmen", km: "68 km", time: "55 min", do: "Cenote + 5ta Av" },
+                { place: "Akumal", km: "84 km", time: "1h 10m", do: "Nado con tortugas" },
+                { place: "Tulum", km: "122 km", time: "1h 30m", do: "Ruinas + laguna" },
+              ].map((s, i) => (
+                <div key={`${s.place}-${i}`} className="flex w-[78vw] shrink-0 flex-col overflow-hidden rounded-[28px] border border-white/10 bg-white text-black sm:w-[320px] lg:w-[300px]">
+                  <div className="relative h-[160px] overflow-hidden">
+                    <img src="/img/cenote-default.jpg" alt={s.place} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                    <span className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold">{s.km}</span>
+                    <span className="absolute bottom-3 left-3 rounded-full bg-[var(--color-lime)] px-2.5 py-1 text-[10px] font-bold text-black">{s.time}</span>
+                    <span className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-white text-[11px] font-bold">{(i % 5) + 1}</span>
+                  </div>
+                  <div className="p-4">
+                    <p className="text-[16px] font-bold leading-none">{s.place}</p>
+                    <p className="mono mt-1 text-[11px] font-bold tracking-[0.08em] text-black/50">{s.do.toUpperCase()}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p className="mono mt-4 text-center text-[11px] tracking-[0.08em] text-white/30 sm:text-left">Carrusel automático • pausa sin info y vuelve a empezar</p>
         </div>
       </section>
 
-      {/* PROCESO */}
-      <section className="fill-screen flex flex-col justify-center bg-white py-16 sm:py-20 lg:py-10">
-        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
-          <SectionTitle title={t.stepsTitle} sub="" />
-          <ol className="mt-8 grid grid-cols-1 gap-4 short:mt-5 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6">
-            {t.steps.map((s, i) => (
-              <li key={s.titulo} className="rounded-2xl bg-[#0a3d7a] p-6 short:p-4 text-white">
-                <p className="text-3xl font-extrabold text-[#f97316]">{i + 1}</p>
-                <h3 className="mt-2 text-base font-bold">{s.titulo}</h3>
-                <p className="mt-1 text-sm text-white/75">{s.texto}</p>
-              </li>
-            ))}
-          </ol>
+      {/* SERVICIOS — editorial, no cards iguales */}
+      <section className="mx-auto max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <h2 className="display text-[28px] sm:text-[36px]">{t.servicesTitle}</h2>
+          <p className="max-w-[40ch] text-[13px] leading-relaxed text-black/60">{t.servicesSub}</p>
         </div>
-      </section>
 
-      {/* PROMO */}
-      <section className="bg-[#f97316] py-12 text-white sm:py-14">
-        <div className="mx-auto max-w-3xl px-5 text-center sm:px-8">
-          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{t.promoTitle}</h2>
-          <p className="mt-2 text-white/90">{t.promoText}</p>
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="mt-6 inline-block rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-[#c2410c] transition hover:bg-[#f6f7f9]">
-            {t.ctaBook}
+        <div className="mt-8 grid gap-4">
+          {FICHAS.map((f, i) => (
+            <Link
+              key={f.slug}
+              to={localize("ficha", locale, f.slug)}
+              className={`group relative flex flex-col gap-4 overflow-hidden border border-black/10 bg-white p-6 transition hover:shadow-[0_16px_40px_rgba(11,15,26,0.08)] sm:p-7 ${i % 2 === 0 ? "rounded-[28px] lg:flex-row lg:items-center" : "rounded-[32px] lg:flex-row-reverse lg:items-center"}`}
+            >
+              <span className="mono absolute right-4 top-4 rounded-full border border-black/10 bg-[var(--color-cream)] px-2.5 py-1 text-[11px] font-bold tracking-[0.1em]">0{i + 1} • {FICHAS.length}</span>
+              <div className={`grid h-16 w-16 shrink-0 place-items-center text-[22px] font-bold ${i % 2 === 0 ? "rounded-[20px] bg-[var(--color-ink)] text-white" : "rounded-full bg-[var(--color-lime)] text-black"}`}>
+                {i === 0 ? "◐" : "⇄"}
+              </div>
+              <div className="flex-1">
+                <h3 className="display text-[22px] sm:text-[26px]">{f.datos[locale].nombre}</h3>
+                <p className="mt-2 max-w-[56ch] text-[13px] leading-relaxed text-black/60">{f.datos[locale].resumen}</p>
+                <span className="mono mt-3 inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.1em]">
+                  Ver detalles <span className="grid h-6 w-6 place-items-center rounded-full bg-black text-white transition group-hover:translate-x-0.5">→</span>
+                </span>
+              </div>
+              <div className="hidden items-center gap-2 rounded-full bg-[var(--color-cream)] px-4 py-2 text-[11px] font-bold lg:inline-flex">WhatsApp fotos ↗</div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Promo — pill gigante, no rectángulo */}
+        <div className="mt-6 flex flex-col items-center justify-between gap-4 rounded-[28px] bg-[var(--color-lime)] p-6 sm:flex-row sm:p-8">
+          <div>
+            <p className="display text-[20px] sm:text-[24px]">{t.promoTitle}</p>
+            <p className="mono mt-1 text-[12px] opacity-60">{t.promoText}</p>
+          </div>
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="shrink-0 rounded-full bg-black px-6 py-3 text-[13px] font-bold text-white">
+            Reservar 7 días
           </a>
         </div>
       </section>
 
-      {/* DESTINOS */}
-      <section className="fill-screen flex flex-col justify-center bg-[#f6f7f9] py-16 sm:py-20 lg:py-10">
-        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
-          <SectionTitle title={t.destTitle} sub={t.destSub} />
-          <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-3 short:mt-5">
-            {t.dests.map((d) => (
-              <li key={d} className="rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-[#0a3d7a]">{d}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* PROCESO — timeline vertical conector, no 4 cuadrados */}
+      <section className="bg-white py-12 sm:py-16">
+        <div className="mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-8">
+          <h2 className="display text-[28px] sm:text-[36px]">{t.stepsTitle}</h2>
 
-      {/* TESTIMONIOS */}
-      <section className="fill-screen flex flex-col justify-center bg-white py-16 sm:py-20 lg:py-10">
-        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
-          <SectionTitle title={t.testiTitle} sub={t.testiSub} />
-          <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 short:mt-5 [scrollbar-width:none] sm:pb-0 lg:grid lg:grid-cols-3 lg:overflow-visible">
-            {TESTIMONIOS.map((x) => (
-              <figure key={x.nombre} className="flex min-w-[85%] snap-center flex-col rounded-2xl border border-slate-200 bg-[#f6f7f9] p-6 short:p-4 sm:min-w-0">
-                <p className="text-[#f97316]" aria-label="5 de 5">★★★★★</p>
-                <blockquote className="mt-3 flex-1 text-[15px] leading-relaxed text-slate-700">“{x.texto}”</blockquote>
-                <figcaption className="mt-4 text-sm font-bold text-[#0a3d7a]">{x.nombre}</figcaption>
-              </figure>
+          <div className="relative mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="pointer-events-none absolute left-4 right-4 top-[28px] hidden h-px bg-black/10 lg:block" aria-hidden />
+            {t.steps.map((s, i) => (
+              <div key={s.titulo} className="relative flex gap-4 rounded-[24px] border border-black/10 bg-[var(--color-cream)] p-5 sm:flex-col">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[var(--color-ink)] text-[14px] font-bold text-white sm:h-12 sm:w-12 sm:text-[16px]">{i + 1}</span>
+                <div>
+                  <h3 className="text-[15px] font-bold leading-tight">{s.titulo}</h3>
+                  <p className="mt-1 text-[13px] leading-relaxed text-black/60">{s.texto}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="fill-screen flex flex-col justify-center bg-[#f6f7f9] py-16 sm:py-20 lg:py-10">
-        <div className="mx-auto w-full max-w-3xl px-5 sm:px-8">
-          <SectionTitle title={t.faqTitle} sub="" />
-          <div className="mt-8 space-y-3 short:mt-5">
+      {/* TESTIMONIOS — quotes grandes, no cards grises */}
+      <section className="mx-auto max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <h2 className="display text-[28px] sm:text-[32px]">{t.testiTitle}</h2>
+          <p className="mono text-[11px] tracking-[0.1em] text-black/40">{t.testiSub}</p>
+        </div>
+        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+          {TESTIMONIOS.map((x, i) => (
+            <figure key={x.nombre} className={`relative overflow-hidden p-6 sm:p-7 ${i === 1 ? "rounded-[32px] bg-[var(--color-ink)] text-white" : "rounded-[24px] border border-black/10 bg-white"}`}>
+              <span className={`absolute right-6 top-6 text-[48px] leading-none opacity-10 ${i === 1 ? "text-white" : "text-black"}`}>“</span>
+              <p className="mono text-[11px] tracking-[0.12em] text-[var(--color-coral)]">★★★★★</p>
+              <blockquote className={`mt-3 text-[15px] leading-relaxed ${i === 1 ? "text-white/90" : "text-black/70"}`}>“{x.texto}”</blockquote>
+              <figcaption className={`mono mt-4 text-[11px] font-bold tracking-[0.08em] ${i === 1 ? "text-white/60" : "text-black/50"}`}>— {x.nombre}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ — acordeón limpio */}
+      <section className="bg-[var(--color-cream)] py-12 sm:py-16">
+        <div className="mx-auto max-w-[860px] px-5 sm:px-6 lg:px-8">
+          <h2 className="display text-center text-[28px] sm:text-[32px]">{t.faqTitle}</h2>
+          <div className="mt-8 space-y-3">
             {t.faqs.map((f) => (
-              <details key={f.q} className="group rounded-2xl border border-slate-200 bg-white px-5 py-4">
-                <summary className="cursor-pointer list-none text-[15px] font-bold text-[#0a3d7a]">{f.q}</summary>
-                <p className="mt-2 text-sm text-slate-600">{f.a}</p>
+              <details key={f.q} className="group rounded-2xl border border-black/10 bg-white open:shadow-sm">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[14px] font-bold">
+                  <span>{f.q}</span>
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-black text-white transition group-open:rotate-45">+</span>
+                </summary>
+                <p className="border-t border-black/10 px-5 py-4 text-[13px] leading-relaxed text-black/60">{f.a}</p>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CONTACTO */}
-      <section id="contacto" className="fill-screen flex scroll-mt-20 flex-col justify-center bg-[#072c58] py-16 text-white sm:py-20 lg:py-10">
-        <div className="mx-auto w-full max-w-3xl px-5 text-center sm:px-8">
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t.contactTitle}</h2>
-          <p className="mt-2 text-white/75">{t.contactSub}</p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="rounded-xl bg-[#f97316] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#c2410c]">
-              WhatsApp: {PHONE_LABEL}
-            </a>
-            <a href={`mailto:${EMAIL}`} className="rounded-xl border border-white/30 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-white/10">
-              {EMAIL}
-            </a>
+      {/* CONTACTO — CTA grande, no cuadrado azul */}
+      <section id="contacto" className="bg-[var(--color-ink)] px-5 py-12 text-white sm:px-6 lg:px-8 lg:py-16">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="grid gap-6 lg:grid-cols-12">
+            <div className="lg:col-span-8">
+              <h2 className="display text-[36px] leading-[0.9] sm:text-[48px]">{t.contactTitle}</h2>
+              <p className="mt-3 max-w-[44ch] text-[14px] leading-relaxed text-white/60">{t.contactSub} Respuesta real, no bot.</p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="inline-flex items-center gap-3 rounded-full bg-[var(--color-lime)] px-6 py-4 text-[14px] font-bold text-black transition hover:bg-[#d4e600]">
+                  WhatsApp: {PHONE_LABEL}
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-black text-xs text-white">↗</span>
+                </a>
+                <a href={`mailto:${EMAIL}`} className="rounded-full border border-white/20 bg-white/10 px-6 py-4 text-[14px] font-bold text-white backdrop-blur hover:bg-white hover:text-black">
+                  {EMAIL}
+                </a>
+              </div>
+            </div>
+            <div className="rounded-[28px] bg-white p-6 text-black lg:col-span-4">
+              <p className="mono text-[11px] font-bold tracking-[0.14em] text-black/40">ENCUÉNTRANOS</p>
+              <p className="mt-2 text-[13px] font-bold leading-relaxed">Aeropuerto CUN • Cancún centro • Playa del Carmen</p>
+              <p className="mono mt-2 text-[11px] leading-relaxed text-black/50">Entrega y recogida donde estés. Sin mostrador, sin fila.</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Link to={localize("terminos", locale)} className="rounded-full border border-black/10 px-3 py-1.5 text-[11px] font-bold">
+                  Términos
+                </Link>
+                <Link to={localize("privacidad", locale)} className="rounded-full border border-black/10 px-3 py-1.5 text-[11px] font-bold">
+                  Privacidad
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6 text-[11px] tracking-[0.08em] text-white/40">
+            <span>SOMCAR · Soluciones Móviles del Caribe</span>
+            <span className="flex gap-3">
+              <a href="https://www.facebook.com/SolucionesMovilesdelCaribe/" target="_blank" rel="noopener" className="hover:text-white">
+                Facebook
+              </a>
+              <a href="https://www.instagram.com/somcar_mx/" target="_blank" rel="noopener" className="hover:text-white">
+                Instagram
+              </a>
+            </span>
           </div>
         </div>
       </section>
 
-      <footer className="bg-[#041c3a] py-8 text-center text-xs text-white/60">
-        <p>SOMCAR · Soluciones Móviles del Caribe</p>
-        <p className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1">
-          <Link to={localize("terminos", locale)}>Términos</Link>
-          <Link to={localize("privacidad", locale)}>Privacidad</Link>
-          <a href="https://www.facebook.com/SolucionesMovilesdelCaribe/" target="_blank" rel="noopener" className="underline">Facebook</a>
-          <a href="https://www.instagram.com/somcar_mx/" target="_blank" rel="noopener" className="underline">Instagram</a>
-        </p>
-      </footer>
+      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-33.33%)}}@keyframes dash{to{stroke-dashoffset:-14}}@keyframes carousel{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){[style*="animation: dash"],[style*="animation: carousel"]{animation:none!important}}`}</style>
     </div>
   );
 }

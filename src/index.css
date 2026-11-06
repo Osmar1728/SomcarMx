@@ -1,14 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  /* Marca SOMCAR: azul caribe + naranja */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  /* SOMCAR original — naranja + azul, no cuadrado */
+  --color-ink: #072c58;
   --color-primary: #0a3d7a;
-  --color-primary-dark: #072c58;
   --color-accent: #f97316;
   --color-accent-dark: #c2410c;
-  --color-base: #f6f7f9;
-  /* Breakpoints: Cel S 320 · Cel M 375 · Cel L 425 · Tablet 768 · Laptop 1024 · Laptop L 1440+ */
+  --color-cream: #f6f7f9;
+  --color-cream-deep: #e8e0d0;
+  --color-lime: #f97316;
+  --color-coral: #c2410c;
+  --color-teal: #0a3d7a;
+  --color-stone: #e8e0d0;
   --breakpoint-xs: 320px;
   --breakpoint-ms: 375px;
   --breakpoint-ml: 425px;
@@ -20,29 +26,88 @@
 html {
   scroll-behavior: smooth;
 }
-
 html,
 body {
   overflow-x: clip;
 }
-
 body {
   font-family: var(--font-sans);
-  background: #fff;
-  color: #0f1e2e;
+  background: var(--color-cream);
+  color: var(--color-ink);
   margin: 0;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
-
 img,
 video {
   max-width: 100%;
 }
-
-/* Inputs a 16px: evita auto-zoom en iOS */
 input,
 select,
 textarea {
   font-size: 16px;
+}
+
+/* Display */
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  text-wrap: balance;
+}
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* Organic shapes — rompe lo cuadrado */
+.blob {
+  border-radius: 32px;
+}
+.blob-soft {
+  border-radius: 24px 32px 28px 36px;
+}
+.pill {
+  border-radius: 999px;
+}
+
+/* Grain sutil */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* Fill-screen helper — medidas proyecto: xs 320 · ms 375 · ml 425 · md 768 · lg 1024 · laptop-l 1440 */
+.fill-screen {
+  min-height: 100svh;
+}
+/* Focus & selection */
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Scrollbar */
+* {
+  scrollbar-color: var(--color-ink) var(--color-cream-deep);
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink);
+  border-radius: 999px;
+  border: 2px solid var(--color-cream-deep);
 }

@@ -10,6 +10,9 @@ export type RouteName =
   | "contacto"
   | "servicios"
   | "ficha"
+  | "cotizador"
+  | "ruta"
+  | "nosotros"
   | "terminos"
   | "privacidad"
   | "notfound";
@@ -25,6 +28,9 @@ const SLUGS: Record<StaticPage, string> = {
   home: "",
   contacto: "/contacto",
   servicios: "/servicios",
+  cotizador: "/cotizador",
+  ruta: "/ruta",
+  nosotros: "/nosotros",
   terminos: "/terminos",
   privacidad: "/privacidad",
 };
@@ -53,6 +59,9 @@ export function parsePath(pathname: string): ParsedRoute {
     rest = clean.slice(m[0].length) || "/";
   }
 
+  if (rest === "/nosotros") return { name: "nosotros", locale };
+  if (rest === "/ruta") return { name: "ruta", locale };
+  if (rest === "/cotizador") return { name: "cotizador", locale };
   if (rest === "/servicios") return { name: "servicios", locale };
   if (rest.startsWith("/servicios/")) {
     const slug = rest.slice("/servicios/".length).trim();
@@ -125,6 +134,18 @@ export const PAGE_META: Record<Locale, Record<RouteName, { title: string; desc: 
       title: "Servicios | SOMCAR",
       desc: "Servicios de SOMCAR. Explora cada ficha y contáctanos.",
     },
+    cotizador: {
+      title: "Cotizador | SOMCAR — desde $750/día",
+      desc: "Cotiza tu renta en Cancún: elige recogida y devolución, fechas y reserva por WhatsApp o Email. Sin tarjeta, km ilimitado.",
+    },
+    ruta: {
+      title: "Ruta 90km Cancún → Tulum | SOMCAR",
+      desc: "La ruta se hace en auto sin prisa: Cancún, Puerto Morelos, Playa, Akumal y Tulum. Qué visitar en cada parada y por qué necesitas auto.",
+    },
+    nosotros: {
+      title: "Nosotros | SOMCAR — Soluciones Móviles del Caribe",
+      desc: "No rentamos autos, damos libertad. Conoce SOMCAR, nuestro compromiso sin tarjeta, km ilimitado y entrega 24/7 en la Riviera Maya.",
+    },
     ficha: {
       title: "Detalle | SOMCAR",
       desc: "Ficha de servicio de SOMCAR.",
@@ -155,6 +176,18 @@ export const PAGE_META: Record<Locale, Record<RouteName, { title: string; desc: 
       title: "Services | SOMCAR",
       desc: "SOMCAR services. Browse each entry and get in touch.",
     },
+    cotizador: {
+      title: "Quote | SOMCAR — from $750 MXN/day",
+      desc: "Quote your Cancun car rental: pick-up and drop-off, dates and book via WhatsApp or Email. No card, unlimited km.",
+    },
+    ruta: {
+      title: "Route 90km Cancun → Tulum | SOMCAR",
+      desc: "The road is made by car without rush: Cancun, Puerto Morelos, Playa, Akumal and Tulum. What to visit at each stop and why you need a car.",
+    },
+    nosotros: {
+      title: "About | SOMCAR",
+      desc: "We don't rent cars, we give freedom. Meet SOMCAR and our commitment.",
+    },
     ficha: {
       title: "Details | SOMCAR",
       desc: "SOMCAR service entry.",
@@ -184,6 +217,18 @@ export const PAGE_META: Record<Locale, Record<RouteName, { title: string; desc: 
     servicios: {
       title: "Servizi | SOMCAR",
       desc: "Servizi di SOMCAR. Sfoglia ogni scheda e contattaci.",
+    },
+    cotizador: {
+      title: "Preventivo | SOMCAR — da $750 MXN/giorno",
+      desc: "Richiedi preventivo noleggio Cancún: ritiro e riconsegna, date e prenota via WhatsApp o Email. Senza carta, km illimitato.",
+    },
+    ruta: {
+      title: "Percorso 90km Cancún → Tulum | SOMCAR",
+      desc: "Il percorso si fa in auto senza fretta: Cancún, Puerto Morelos, Playa, Akumal e Tulum. Cosa visitare a ogni tappa.",
+    },
+    nosotros: {
+      title: "Chi siamo | SOMCAR",
+      desc: "Non noleggiamo auto, diamo libertà.",
     },
     ficha: {
       title: "Dettaglio | SOMCAR",

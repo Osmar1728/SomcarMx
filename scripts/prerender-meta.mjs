@@ -30,7 +30,7 @@ const setHref = (html, rel, v, extra = "") =>
     `<link rel="${rel}"${extra} href="${v}" />`,
   );
 
-const STATIC_KEY = { "": "home", "/contacto": "contacto", "/servicios": "servicios", "/terminos": "terminos", "/privacidad": "privacidad" };
+const STATIC_KEY = { "": "home", "/cotizador": "cotizador", "/ruta": "ruta", "/nosotros": "nosotros", "/contacto": "contacto", "/servicios": "servicios", "/terminos": "terminos", "/privacidad": "privacidad" };
 const slugs = [...Object.keys(STATIC_KEY), ...FICHAS.map((f) => `/servicios/${f.slug}`)];
 
 function renderPage({ slug, locale }) {

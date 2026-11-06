@@ -1,6 +1,9 @@
 import Header from "./components/Header";
 import Link from "./components/Link";
 import HomePage from "./pages/Home";
+import CotizadorPage from "./pages/Cotizador";
+import RutaPage from "./pages/Ruta";
+import NosotrosPage from "./pages/Nosotros";
 import { UI } from "./lib/ui";
 import { localize, setLenis, usePageMeta, useRoute, type Locale, type StaticPage } from "./lib/router";
 import { FICHAS, getFicha } from "./lib/fichas";
@@ -88,6 +91,7 @@ export default function App() {
   const route = useRoute();
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
     setLenis(lenis);
     let raf = 0;
@@ -106,6 +110,12 @@ export default function App() {
   switch (route.name) {
     case "home":
       return <HomePage locale={route.locale} />;
+    case "cotizador":
+      return <CotizadorPage locale={route.locale} />;
+    case "ruta":
+      return <RutaPage locale={route.locale} />;
+    case "nosotros":
+      return <NosotrosPage locale={route.locale} />;
     case "contacto":
       return <Contacto locale={route.locale} />;
     case "servicios":

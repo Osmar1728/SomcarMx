@@ -29,6 +29,9 @@ const pathOf = (slug, locale) => (locale === "es" ? slug || "/" : `/${locale}${s
 // Una sola fuente de verdad: mismas páginas que src/lib/router.ts + fichas de src/lib/fichas.ts.
 const pages = [
   { slug: "", priority: "1.0", changefreq: "weekly", src: ["index.html", "src/App.tsx", "src/main.tsx"] },
+  { slug: "/cotizador", priority: "1.0", changefreq: "weekly", src: ["src/pages/Cotizador.tsx", "src/App.tsx"] },
+  { slug: "/ruta", priority: "0.9", changefreq: "weekly", src: ["src/pages/Ruta.tsx", "src/App.tsx"] },
+  { slug: "/nosotros", priority: "0.7", changefreq: "monthly", src: ["src/pages/Nosotros.tsx", "src/App.tsx"] },
   { slug: "/contacto", priority: "0.9", changefreq: "monthly", src: ["src/App.tsx"] },
   { slug: "/servicios", priority: "0.9", changefreq: "weekly", src: ["src/App.tsx", "src/lib/fichas.ts"] },
   { slug: "/terminos", priority: "0.3", changefreq: "yearly", src: ["src/App.tsx"] },
