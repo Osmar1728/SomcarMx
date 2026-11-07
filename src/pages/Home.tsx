@@ -83,10 +83,10 @@ export default function HomePage({ locale }: { locale: Locale }) {
             <p className="mt-4 max-w-[48ch] text-[16px] leading-relaxed text-black/60 sm:text-[18px]">{t.heroSub}</p>
             <p className="mt-3 max-w-[52ch] text-[13px] leading-relaxed text-black/45">
               {locale === "es"
-                ? "La Riviera no se visita en tour. Se maneja. Playa a las 8, cenote a las 11, Tulum al atardecer."
+                ? "La Riviera no se visita en tour. Se maneja."
                 : locale === "en"
-                  ? "The Riviera isn’t a tour. You drive it. Beach at 8, cenote at 11, Tulum at sunset."
-                  : "La Riviera non è un tour. Si guida. Spiaggia alle 8, cenote alle 11, Tulum al tramonto."}
+                  ? "The Riviera isn’t a tour. You drive it."
+                  : "La Riviera non è un tour. Si guida."}
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -102,7 +102,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
                 <span className="h-2 w-2 rounded-full bg-[var(--color-lime)]" /> {t.price}
                 <span className="font-normal text-black/50">· {t.priceNote}</span>
               </span>
-              {t.stats.map((s) => (
+              {t.stats.filter((s) => s.titulo !== "0").map((s) => (
                 <span key={s.titulo} className="pill inline-flex items-center gap-1.5 border border-black/10 bg-[var(--color-cream)] px-4 py-2 text-[13px]">
                   <strong>{s.titulo}</strong>
                   <span className="text-black/50">{s.texto}</span>
@@ -133,7 +133,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
                   <div className="pointer-events-none absolute inset-0 rounded-[20px] border border-[#c9b896] opacity-60" aria-hidden />
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="mono text-[10px] tracking-[0.16em] text-[#8a7355]">MAPA PIRATA • RIVIERA MAYA</p>
+                      <p className="mono text-[10px] tracking-[0.16em] text-[#8a7355]">MAPA • RIVIERA MAYA</p>
                       <p className="display mt-1 text-[19px] leading-none text-[#1a1205]">90 km de tesoros</p>
                       <p className="mono mt-1 text-[10px] text-[#8a7355]">Cancún → Tulum en 1:30h</p>
                     </div>
@@ -177,7 +177,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
                     <span>AKUMAL</span>
                     <span>TULUM ✕</span>
                   </div>
-                  <p className="mono mt-2 text-center text-[9px] tracking-[0.1em] text-[#8a7355]">— SIGUE LA RUTA · CADA X UN TESORO —</p>
+                  <p className="mono mt-2 text-center text-[9px] tracking-[0.1em] text-[#8a7355]">— SIGUE LA RUTA —</p>
                 </div>
 
                 <div className="mt-4 grid grid-cols-3 gap-2">
@@ -218,50 +218,47 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* RENTAR FÁCIL — tu anterior con imagen (que te gustaba) */}
+      {/* RENTAR FÁCIL — Motors specs × Spyker (solo acomodo, fondo claro como al inicio) */}
       <section className="mx-auto max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="display max-w-[14ch] text-[32px] sm:text-[42px]">{t.benefitsTitle}</h2>
-          <p className="max-w-[36ch] text-[14px] leading-relaxed text-black/60">{t.benefitsSub} — sin tour, a tu ritmo.</p>
+          <div>
+            <h2 className="display mt-3 max-w-[16ch] text-[32px] leading-[0.9] text-[#050a14] sm:text-[42px]">{t.benefitsTitle}</h2>
+          </div>
         </div>
+        <div className="mt-10 grid grid-cols-12 gap-4">
+          <div className="col-span-12 flex flex-col gap-4 lg:col-span-4">
+            <article className="flex flex-1 flex-col gap-3 rounded-[28px] bg-[var(--color-ink)] p-6 text-white">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-lime)] text-black">✓</span>
+              <h3 className="text-[17px] font-bold leading-tight">{t.benefits[0].titulo}</h3>
+              <p className="text-[13px] leading-relaxed text-white/70">{t.benefits[0].texto}</p>
+            </article>
+            <article className="flex flex-1 flex-col gap-2 rounded-[28px] bg-[var(--color-cream)] p-6">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-ink)] text-white">24</span>
+              <h3 className="text-[17px] font-bold">{t.benefits[2].titulo}</h3>
+              <p className="text-[13px] leading-relaxed text-black/60">{t.benefits[2].texto}</p>
+            </article>
+          </div>
 
-        <div className="mt-8 grid grid-cols-12 gap-4">
-          <div className="col-span-12 overflow-hidden rounded-[28px] bg-black lg:col-span-4 lg:row-span-2">
+          <div className="col-span-12 overflow-hidden rounded-[28px] bg-black lg:col-span-4 lg:row-span-1 lg:min-h-[440px]">
             <div className="relative h-[280px] lg:h-full lg:min-h-[440px]">
               <img src="/img/cenote-default.jpg" alt="Riviera Maya cenote" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
               <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[11px] font-bold">DESDE $750</span>
-              <div className="absolute bottom-4 left-4 right-4">
-                <p className="text-[13px] font-bold leading-tight text-white">Imagen genérica — tu multimedia</p>
-                <p className="mono mt-1 text-[11px] text-white/70">Reemplaza por tu foto de Riviera</p>
-              </div>
             </div>
           </div>
 
-          <article className="col-span-12 flex flex-col gap-3 rounded-[28px] bg-[var(--color-ink)] p-6 text-white sm:col-span-6 lg:col-span-4">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-lime)] text-black">✓</span>
-            <h3 className="text-[17px] font-bold leading-tight">{t.benefits[0].titulo}</h3>
-            <p className="text-[13px] leading-relaxed text-white/70">{t.benefits[0].texto}</p>
-          </article>
-
-          <article className="col-span-12 flex flex-col gap-2 rounded-[28px] border border-black/10 bg-white p-6 sm:col-span-6 lg:col-span-4">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-teal)] text-black">∞</span>
-            <h3 className="text-[17px] font-bold">{t.benefits[1].titulo}</h3>
-            <p className="text-[13px] leading-relaxed text-black/60">{t.benefits[1].texto}</p>
-          </article>
-
-          <article className="col-span-12 flex flex-col gap-2 rounded-[28px] bg-[var(--color-cream)] p-6 sm:col-span-6 lg:col-span-4">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-ink)] text-white">24</span>
-            <h3 className="text-[17px] font-bold">{t.benefits[2].titulo}</h3>
-            <p className="text-[13px] leading-relaxed text-black/60">{t.benefits[2].texto}</p>
-          </article>
-
-          <article className="col-span-12 flex flex-col gap-2 rounded-[28px] bg-[var(--color-lime)] p-6 sm:col-span-6 lg:col-span-4">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-black text-white">0</span>
-            <h3 className="text-[17px] font-bold">{t.benefits[3].titulo}</h3>
-            <p className="text-[13px] leading-relaxed text-black/70">{t.benefits[3].texto}</p>
-            <p className="mono mt-auto text-[11px] font-bold tracking-[0.08em]">PAGA COMO QUIERAS →</p>
-          </article>
+          <div className="col-span-12 flex flex-col gap-4 lg:col-span-4">
+            <article className="flex flex-1 flex-col gap-2 rounded-[28px] bg-[var(--color-cream)] p-6">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-ink)] text-white">∞</span>
+              <h3 className="text-[17px] font-bold">{t.benefits[1].titulo}</h3>
+              <p className="text-[13px] leading-relaxed text-black/60">{t.benefits[1].texto}</p>
+            </article>
+            <article className="flex flex-1 flex-col gap-2 rounded-[28px] bg-[#f97316] p-6">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-black text-white">0</span>
+              <h3 className="text-[17px] font-bold">{t.benefits[3].titulo}</h3>
+              <p className="text-[13px] leading-relaxed text-black/70">{t.benefits[3].texto}</p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -287,39 +284,16 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="bg-white py-12 sm:py-16">
-        <div className="mx-auto max-w-[1040px] px-5 sm:px-6">
-          <div className="overflow-hidden rounded-[24px] bg-[#2d3bff] p-8 text-white shadow-[0_20px_60px_rgba(45,59,255,0.25)] sm:p-10">
-            <h2 className="text-center text-[22px] font-extrabold leading-tight sm:text-[26px]">Rentar un auto en Cancun<br />núnca ha sido tan fácil.</h2>
-            <div className="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-6">
-              <div className="text-center">
-                <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-white/15 text-white">24</span>
-                <p className="mt-4 text-[13px] font-bold">Asistencia 24/7</p>
-                <p className="mono mt-1 text-[11px] leading-relaxed text-white/70">Soporte cuando lo necesites.</p>
-                <a href="tel:+529981684805" className="mono mt-4 inline-flex rounded-full bg-white/15 px-4 py-2 text-[11px] font-bold text-white hover:bg-white hover:text-[#2d3bff]">
-                  +52 (998)168 4805
-                </a>
-              </div>
-              <div className="text-center">
-                <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-white/15 text-white">◫</span>
-                <p className="mt-4 text-[13px] font-bold">Sin tarjeta de crédito</p>
-                <p className="mono mt-1 text-[11px] leading-relaxed text-white/70">Unidades sin depósito.</p>
-              </div>
-              <div className="text-center">
-                <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-white/15 text-white">◐</span>
-                <p className="mt-4 text-[13px] font-bold">Pregunta por nuestras promociones</p>
-                <p className="mono mt-1 text-[11px] leading-relaxed text-white/70">Vigentes esta temporada.</p>
-                <a
-                  href="https://wa.me/529981684805?text=Hola%20SOMCAR%2C%20quiero%20saber%20sobre%20sus%20promociones%20vigentes%20para%20renta%20en%20Canc%C3%BAn"
-                  target="_blank"
-                  rel="noopener"
-                  className="mono mt-4 inline-flex rounded-full bg-white px-5 py-2 text-[11px] font-bold text-[#2d3bff] hover:bg-black hover:text-white"
-                >
-                  Ver promociones
-                </a>
-              </div>
-            </div>
+      <section className="bg-[#f6f7f9] py-10">
+        <div className="mx-auto flex max-w-[1040px] flex-col items-center justify-between gap-4 px-5 sm:flex-row sm:px-6">
+          <div className="text-center sm:text-left">
+            <p className="mono text-[11px] font-bold tracking-[0.14em] text-[#f97316]">PROMOCIONES VIGENTES</p>
+            <h3 className="mt-1 text-[18px] font-bold leading-tight text-[#050a14]">¿Hay promo esta semana? Pregunta y te decimos.</h3>
+            <p className="mono mt-1 text-[11px] text-black/40">Sin spam, solo la vigente por WhatsApp.</p>
           </div>
+          <a href="https://wa.me/529981684805?text=Hola%20SOMCAR%2C%20quiero%20saber%20sobre%20sus%20promociones%20vigentes%20para%20renta%20en%20Canc%C3%BAn" target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-[#f97316] px-6 py-3 text-[13px] font-bold text-white shadow-[0_10px_24px_rgba(249,115,22,0.25)] hover:bg-[#c2410c]">
+            Preguntar por WhatsApp <span>→</span>
+          </a>
         </div>
       </section>
 
@@ -329,12 +303,12 @@ export default function HomePage({ locale }: { locale: Locale }) {
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-ink)] via-[var(--color-ink)]/90 to-[var(--color-ink)]" />
         <div className="relative mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
+            <div className="min-w-0 overflow-hidden">
               <p className="mono inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-bold tracking-[0.14em] text-[var(--color-lime)]">
                 <span className="h-2 w-2 rounded-full bg-[var(--color-lime)] animate-pulse" /> LA RIVIERA EN 90 KM
               </p>
               <h2 className="display mt-3 text-[30px] sm:text-[44px]">{t.destTitle}</h2>
-              <p className="mt-2 max-w-[40ch] text-[14px] leading-relaxed text-white/60">{t.destSub} En auto, sin van y sin prisa.</p>
+              <p className="mt-2 truncate whitespace-nowrap text-[13px] sm:text-[14px] leading-relaxed text-white/60">{locale === "es" ? "Todo el Caribe en auto, en tu carro a tu ritmo y horarios." : locale === "en" ? "The whole Caribbean by car, at your pace and schedule." : "Tutti i Caraibi in auto, al tuo ritmo e orari."}</p>
             </div>
             <Link to={localize("ruta", locale)} className="mono hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-[11px] font-bold text-black hover:bg-[var(--color-lime)] sm:inline-flex">
               Ver ruta completa →
@@ -372,7 +346,6 @@ export default function HomePage({ locale }: { locale: Locale }) {
             </div>
           </div>
 
-          <p className="mono mt-4 text-center text-[11px] tracking-[0.08em] text-white/30 sm:text-left">Carrusel automático • pausa sin info y vuelve a empezar</p>
         </div>
       </section>
 
