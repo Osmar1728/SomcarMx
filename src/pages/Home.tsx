@@ -218,12 +218,10 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* RENTAR FÁCIL — Motors specs × Spyker (solo acomodo, fondo claro como al inicio) */}
+      {/* RENTAR FÁCIL — imagen en medio, cards a los lados */}
       <section className="mx-auto max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h2 className="display mt-3 max-w-[16ch] text-[32px] leading-[0.9] text-[#050a14] sm:text-[42px]">{t.benefitsTitle}</h2>
-          </div>
+          <h2 className="display max-w-[14ch] text-[32px] sm:text-[42px]">{t.benefitsTitle}</h2>
         </div>
         <div className="mt-10 grid grid-cols-12 gap-4">
           <div className="col-span-12 flex flex-col gap-4 lg:col-span-4">
@@ -248,8 +246,8 @@ export default function HomePage({ locale }: { locale: Locale }) {
           </div>
 
           <div className="col-span-12 flex flex-col gap-4 lg:col-span-4">
-            <article className="flex flex-1 flex-col gap-2 rounded-[28px] bg-[var(--color-cream)] p-6">
-              <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-ink)] text-white">∞</span>
+            <article className="flex flex-1 flex-col gap-2 rounded-[28px] border border-black/10 bg-white p-6">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-teal)] text-black">∞</span>
               <h3 className="text-[17px] font-bold">{t.benefits[1].titulo}</h3>
               <p className="text-[13px] leading-relaxed text-black/60">{t.benefits[1].texto}</p>
             </article>
@@ -356,7 +354,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
           <p className="max-w-[40ch] text-[13px] leading-relaxed text-black/60">{t.servicesSub}</p>
         </div>
 
-        <div className="mt-8 grid gap-4">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2">
           {FICHAS.map((f, i) => (
             <Link
               key={f.slug}
@@ -370,7 +368,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
               <div className="flex-1">
                 <h3 className="display text-[22px] sm:text-[26px]">{f.datos[locale].nombre}</h3>
                 <p className="mt-2 max-w-[56ch] text-[13px] leading-relaxed text-black/60">{f.datos[locale].resumen}</p>
-                <span className="mono mt-3 inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.1em]">
+                <span className="mono absolute bottom-4 right-4 inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.1em]">
                   Ver detalles <span className="grid h-6 w-6 place-items-center rounded-full bg-black text-white transition group-hover:translate-x-0.5">→</span>
                 </span>
               </div>
