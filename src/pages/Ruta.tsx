@@ -173,27 +173,91 @@ export default function RutaPage({ locale }: { locale: Locale }) {
                 <div className={`col-span-12 lg:col-span-5 lg:col-start-8 ${active === i ? "opacity-100" : "opacity-70 lg:opacity-40"} transition duration-700`}>
                   <div className="overflow-hidden rounded-[20px] border border-white/10 bg-[#0f131a]">
                     <div className="relative h-[300px] overflow-hidden sm:h-[360px]">
-                      <img src={DEFAULT_IMG} alt={`${s.place} cenote`} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                      <img src={i === 0 ? "/img/cancun-ruta-1.webp" : i === 1 ? "/img/puerto-morelos-ruta-1.webp" : i === 2 ? "/img/playa-del-carmen-ruta-4.webp" : i === 3 ? "/img/akumal-ruta-4.webp" : i === 4 ? "/img/tulum-ruta-4.webp" : DEFAULT_IMG} alt={`${s.place} cenote`} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
-                      <span className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold">PREDETERMINADA</span>
+                      {i !== 0 && i !== 1 && i !== 2 && i !== 3 && i !== 4 && <span className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold">PREDETERMINADA</span>}
                       <span className="absolute bottom-3 right-3 rounded-full bg-black/60 px-3 py-1 text-[11px] font-bold text-white backdrop-blur">{s.place.toUpperCase()}</span>
                     </div>
                     {/* mini galería */}
                     <div className="grid grid-cols-3 gap-2 p-3">
-                      <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
-                        <img src="/video/hero-poster.jpg" alt="Mar turquesa" className="absolute inset-0 h-full w-full object-cover opacity-90" loading="lazy" />
-                        <span className="absolute bottom-1 left-1 rounded-full bg-black/60 px-1.5 py-0.5 text-[8px] font-bold text-white">MAR</span>
-                      </div>
-                      <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
-                        <img src={DEFAULT_IMG} alt="Cenote detalle" className="absolute inset-0 h-full w-full object-cover object-bottom opacity-90" loading="lazy" />
-                        <span className="absolute bottom-1 left-1 rounded-full bg-black/60 px-1.5 py-0.5 text-[8px] font-bold text-white">CENOTE</span>
-                      </div>
-                      <div className="relative h-[72px] overflow-hidden rounded-[12px] border border-dashed border-white/20 bg-white/5 flex items-center justify-center">
-                        <span className="mono text-center text-[9px] font-bold leading-tight text-white/50">+ TU<br />FOTO AQUÍ</span>
-                      </div>
+                      {i === 0 ? (
+                        <>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/cancun-ruta-2.webp" alt="Cancún 2" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/cancun-ruta-3.webp" alt="Cancún 3" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/cancun-ruta-4.webp" alt="Cancún 4" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                        </>
+                      ) : i === 1 ? (
+                        <>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/puerto-morelos-ruta-2.webp" alt="Puerto Morelos 2" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/puerto-morelos-ruta-3.webp" alt="Puerto Morelos 3" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/puerto-morelos-ruta-4.webp" alt="Puerto Morelos 4" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                        </>
+                      ) : i === 2 ? (
+                        <>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/playa-del-carmen-ruta-1.webp" alt="Playa 1" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/playa-del-carmen-ruta-2.webp" alt="Playa 2" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/playa-del-carmen-ruta-3.webp" alt="Playa 3" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                        </>
+                      ) : i === 3 ? (
+                        <>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/akumal-ruta-1.webp" alt="Akumal 1" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/akumal-ruta-2.webp" alt="Akumal 2" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/akumal-ruta-3.webp" alt="Akumal 3" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                        </>
+                      ) : i === 4 ? (
+                        <>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/tulum-ruta-1.webp" alt="Tulum 1" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/tulum-ruta-2.webp" alt="Tulum 2" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/img/tulum-ruta-3.webp" alt="Tulum 3" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src="/video/hero-poster.jpg" alt="Mar turquesa" className="absolute inset-0 h-full w-full object-cover opacity-90" loading="lazy" />
+                            <span className="absolute bottom-1 left-1 rounded-full bg-black/60 px-1.5 py-0.5 text-[8px] font-bold text-white">MAR</span>
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] bg-black/20">
+                            <img src={DEFAULT_IMG} alt="Cenote detalle" className="absolute inset-0 h-full w-full object-cover object-bottom opacity-90" loading="lazy" />
+                            <span className="absolute bottom-1 left-1 rounded-full bg-black/60 px-1.5 py-0.5 text-[8px] font-bold text-white">CENOTE</span>
+                          </div>
+                          <div className="relative h-[72px] overflow-hidden rounded-[12px] border border-dashed border-white/20 bg-white/5 flex items-center justify-center">
+                            <span className="mono text-center text-[9px] font-bold leading-tight text-white/50">+ TU<br />FOTO AQUÍ</span>
+                          </div>
+                        </>
+                      )}
                     </div>
                     <div className="px-4 pb-3">
-                      <p className="mono text-[10px] tracking-[0.08em] text-white/40">3 imágenes por parada — reemplaza con tu multimedia</p>
+                      <p className="mono text-[10px] tracking-[0.08em] text-white/40">{i === 0 ? "Cancún — 4 imágenes reales" : i === 1 ? "Puerto Morelos — 4 imágenes reales" : i === 2 ? "Playa del Carmen — 4 imágenes reales" : i === 3 ? "Akumal — 4 imágenes reales" : i === 4 ? "Tulum — 4 imágenes reales" : "3 imágenes por parada — reemplaza con tu multimedia"}</p>
                     </div>
                   </div>
                 </div>

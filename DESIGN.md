@@ -140,7 +140,7 @@ Sticky crema 80% blur, 64px, logo 32px rounded-full, nav pills (Inicio/Ruta/Noso
 Steps 1–4 con progress naranja, inputs `rounded-2xl` 14px, select crema, resumen ink sticky. Sin precio.
 
 ### Ruta
-Sticky mapa turquesa con mar de fondo 28% + línea sólida turquesa que se pinta (100→0 offset). Cards horizontales `380px` snap con gap ↻, imagen 220–360px a sangre + 3 mini galería. Tour vs Auto 2 col sin precio.
+Sticky mapa turquesa con mar de fondo 28% + línea sólida turquesa que se pinta (100→0 offset). Cards horizontales `380px` snap con gap ↻, imagen 300–360px a sangre + mini galería 3 sin duplicar (principal ≠ mini). 5 paradas ×4 webp 1280/q72: Cancún faro, Puerto Morelos letrero, Playa sirenas (4), Akumal tortuga (4), Tulum ruinas (4). Tour vs Auto 2 col sin precio.
 
 ### Cards
 - **Beneficios:** imagen cenote a sangre a la izquierda (4 col) + 2×2 grid a la derecha, cada card 28px.
@@ -150,7 +150,7 @@ Sticky mapa turquesa con mar de fondo 28% + línea sólida turquesa que se pinta
 
 ### Do:
 - **Do** mantener hero full-screen en las 6 medidas con video real de Riviera.
-- **Do** usar `cenote-default.jpg` como predeterminada hasta tu multimedia por parada.
+- **Do** usar `*-ruta-1..4.webp` 1280/q72 por parada; `cenote-default.webp` solo fallback.
 - **Do** tematizar selection naranja, focus naranja, scrollbar ink/cream.
 
 ### Don't:

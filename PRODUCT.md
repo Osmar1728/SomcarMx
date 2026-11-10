@@ -32,7 +32,7 @@ SOMCAR (Soluciones Móviles del Caribe) renta autos en Cancún y Riviera Maya. E
 
 - **Flujo core Home:** Hero full-screen con video Riviera (hotelera → salto cenote → atardecer) + cotizador 30 seg + mapa pirata + beneficios con imagen + road 5 stops + carrusel infinito sin tope + servicios + proceso 4 pasos + testimonios + FAQ + contacto.
 - **Cotizador Lexor 4 pasos:** 1) ¿Dónde y cuándo recogemos? (9 locaciones + fecha/hora) → 2) ¿Dónde y cuándo entregas? (+ mismo que recogida) → 3) ¿Cuándo valida días → 4) Confirma nombre/email/nota → WhatsApp prellenado sin precio o Email. Sin precio hasta cotización humana.
-- **Ruta White Desert inspired:** Scrollytelling pegado bajo nav (sticky 100vh-64px sin rebote) con línea turquesa punteada que se pinta conforme bajas. En desktop info izquierda / foto derecha (no intercalado); en móvil apilado. Cada card tiene 3 imágenes (cenote + mar + tu foto) y bloque Tour vs Auto sin precio.
+- **Ruta White Desert inspired:** Scrollytelling pegado bajo nav (sticky 100vh-64px sin rebote) con línea turquesa punteada que se pinta conforme bajas. En desktop info izquierda / foto derecha (no intercalado); en móvil apilado. Cada card tiene 4 imágenes reales (principal + 3 mini sin duplicar) y bloque Tour vs Auto sin precio.
 - **Idiomas:** ES sin prefijo `/`, EN `/en/*`, IT `/it/*` con `hreflang` + `lang` dinámico, `noindex` en 404, sitemap 30 URLs (10 slugs ×3) y prerender OG por ruta.
 - **Soporte:** WhatsApp wa.me/529981684805 con mensajes predeterminados por contexto (cotizador, promociones), Email contacto@somcar.mx, teléfono.
 
@@ -50,7 +50,7 @@ SOMCAR (Soluciones Móviles del Caribe) renta autos en Cancún y Riviera Maya. E
 - Preservar SEO técnico (hreflang, canonical, OG, JSON-LD).
 - No inventar flota exacta, precios distintos a $750, o testimonios falsos.
 
-**Indecisos explícitos:** Fotos reales por parada (cenote-default como placeholder), video final de Riviera grabado in situ, integración de pagos, programa fidelidad.
+**Indecisos explícitos:** Video final de Riviera grabado in situ, integración de pagos, programa fidelidad. Fotos por parada ya resueltas (20 webp).
 
 ## Brand Commitments
 
@@ -62,7 +62,7 @@ SOMCAR (Soluciones Móviles del Caribe) renta autos en Cancún y Riviera Maya. E
 
 ## Evidence on Hand
 
-- Código vivo: `src/pages/Home.tsx` (hero video + mapa pirata + carrusel), `src/pages/Cotizador.tsx` (9 locaciones), `src/pages/Ruta.tsx` (scrollytelling), `src/pages/Nosotros.tsx` (texto real de la captura + 9 años), `src/components/Header.tsx` (Ruta+Nuevos), `public/video/*` (3 mp4 Pexels 640p + poster), `public/img/cenote-default.jpg` (551K), `scripts/*`.
+- Código vivo: `src/pages/Home.tsx` (hero video + mapa pirata + carrusel), `src/pages/Cotizador.tsx` (9 locaciones), `src/pages/Ruta.tsx` (scrollytelling con 4 webp por parada + principal sin duplicar), `src/pages/Nosotros.tsx` (texto real de la captura + 9 años), `src/components/Header.tsx` (Ruta+Nuevos), `public/video/hero-riviera.mp4` (5.5M) + poster, `public/img/*-ruta-1..4.webp` (20 imágenes 52K–489K 1280/q72) + `cenote-default.webp` fallback, `scripts/*`.
 - Copy real: `src/lib/home.ts` HOME trilingüe, `TESTIMONIOS` 3, `PAGE_META` 10 rutas ×3, `FICHAS` 2.
 - No fabricar: modelos de autos, fotos flota, reseñas nuevas, precios distintos.
 
