@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Link from "../components/Link";
-import { HOME, TESTIMONIOS, WHATSAPP_URL, PHONE_LABEL, EMAIL } from "../lib/home";
+import { HOME } from "../lib/home";
 import { FICHAS } from "../lib/fichas";
 import { localize, usePageMeta, type Locale } from "../lib/router";
 
@@ -26,6 +27,58 @@ export default function HomePage({ locale }: { locale: Locale }) {
   }, []);
   const t = HOME[locale];
   const switchPath = (l: Locale) => localize("home", l);
+  const opinionesPool = useMemo(
+    () =>
+      locale === "en"
+        ? [
+            { nombre: "Eunice C.", fecha: "16 Sep 2025", texto: "Super friendly from booking, requirements via WhatsApp. Delivered in Tulum with video, lots of tips and always attentive. Great!" },
+            { nombre: "Guillermo R.", fecha: "14 Apr 2025", texto: "Good service, clear from start, spotless car with insurance. No fine print. Recommended." },
+            { nombre: "Ana P.", fecha: "2 Aug 2025", texto: "No card, no deposit as promised. Hotel delivery, truly unlimited km. Will return." },
+            { nombre: "Marco T.", fecha: "21 Jul 2025", texto: "Punctual airport-hotel shuttle, clean van and friendly driver." },
+            { nombre: "Daniela R.", fecha: "8 Jun 2025", texto: "No hidden fees, agreed price. Helped with cenotes and Tulum route. 10/10." },
+            { nombre: "Carlos M.", fecha: "30 May 2025", texto: "WhatsApp booking in minutes, fast delivery in Cancun center. Sanitized car." },
+            { nombre: "Lucía F.", fecha: "12 May 2025", texto: "Truly pet-friendly, we brought our dog without issue. Thanks Somcar!" },
+            { nombre: "Jorge L.", fecha: "28 Mar 2025", texto: "Wide coverage, no deposit. Airport return without hassle." },
+            { nombre: "Sofia G.", fecha: "18 Feb 2025", texto: "Price from $750 real, no surprises. Unlimited km is real." },
+            { nombre: "Roberto H.", fecha: "5 Jan 2025", texto: "24/7 support, replied at 11pm for schedule change. Great." },
+            { nombre: "Valeria C.", fecha: "22 Dec 2024", texto: "Van for 7 perfect, AC and professional driver." },
+            { nombre: "Andrés M.", fecha: "10 Dec 2024", texto: "No credit card, paid by transfer. All transparent." },
+          ]
+        : locale === "it"
+          ? [
+              { nombre: "Eunice C.", fecha: "16 set 2025", texto: "Super gentili dal booking, requisiti via WhatsApp. Consegna a Tulum con video, tanti consigli. Top!" },
+              { nombre: "Guillermo R.", fecha: "14 apr 2025", texto: "Buon servizio, chiari dall'inizio, auto impeccabile con assicurazione. Consigliati." },
+              { nombre: "Ana P.", fecha: "2 ago 2025", texto: "Senza carta né deposito come promesso. Consegna in hotel, km illimitato reale." },
+              { nombre: "Marco T.", fecha: "21 lug 2025", texto: "Navetta puntuale aeroporto-hotel, van pulito e autista gentile." },
+              { nombre: "Daniela R.", fecha: "8 giu 2025", texto: "Nessun costo nascosto, prezzo concordato. Aiuto per cenotes. 10/10." },
+              { nombre: "Carlos M.", fecha: "30 mag 2025", texto: "Prenotazione WhatsApp in minuti, consegna rapida a Cancún." },
+              { nombre: "Lucía F.", fecha: "12 mag 2025", texto: "Davvero pet-friendly, cane senza problemi. Grazie!" },
+              { nombre: "Jorge L.", fecha: "28 mar 2025", texto: "Copertura ampia, senza deposito. Riconsegna aeroporto facile." },
+              { nombre: "Sofia G.", fecha: "18 feb 2025", texto: "Prezzo da $750 reale, nessuna sorpresa." },
+              { nombre: "Roberto H.", fecha: "5 gen 2025", texto: "Assistenza 24/7, risposta alle 23 per cambio orario." },
+              { nombre: "Valeria C.", fecha: "22 dic 2024", texto: "Van per 7 perfetto, AC e autista professionale." },
+              { nombre: "Andrés M.", fecha: "10 dic 2024", texto: "Senza carta, pagato con bonifico. Trasparente." },
+            ]
+          : [
+              { nombre: "Eunice Cerón", fecha: "16 sep 2025", texto: "Desde el momento en que hicimos la reservación fueron super amables, nos dieron los requisitos por whatsapp. Nos entregaron en Tulum con video del auto, muchos tips y siempre al pendiente. ¡Tipaza Fernanda!" },
+              { nombre: "Guillermo Ramírez", fecha: "14 abr 2025", texto: "Buen servicio, claros desde el inicio, auto impecable con seguro incluido. Sin letras chicas. Recomendados." },
+              { nombre: "Ana P.", fecha: "2 ago 2025", texto: "Renta sin tarjeta ni depósito como prometen. Entrega en hotel, kilómetro libre real. Volveremos sin duda." },
+              { nombre: "Marco T.", fecha: "21 jul 2025", texto: "Shuttle puntual aeropuerto-hotel, van limpia y conductor amable. Excelente alternativa." },
+              { nombre: "Daniela R.", fecha: "8 jun 2025", texto: "Sin cargos ocultos, precio acordado. Nos ayudaron con cenotes y ruta a Tulum. 10/10." },
+              { nombre: "Carlos M.", fecha: "30 may 2025", texto: "Reserva por WhatsApp en minutos, entrega en Cancún centro rápido. Auto sanitizado." },
+              { nombre: "Lucía F.", fecha: "12 may 2025", texto: "Pet-friendly real, llevamos a nuestra perrita sin problema. Gracias Somcar!" },
+              { nombre: "Jorge L.", fecha: "28 mar 2025", texto: "Cobertura amplia y sin depósito. Devolución en aeropuerto sin revisión eterna." },
+              { nombre: "Sofía G.", fecha: "18 feb 2025", texto: "Precio desde $750 real, sin sorpresas al final. Kilometraje libre sí es libre." },
+              { nombre: "Roberto H.", fecha: "5 ene 2025", texto: "Atención 24/7, nos contestaron a las 11pm para cambio de horario. Genial." },
+              { nombre: "Valeria C.", fecha: "22 dic 2024", texto: "Van para 7 personas perfecta, con aire y chofer muy profesional." },
+              { nombre: "Andrés M.", fecha: "10 dic 2024", texto: "Sin tarjeta de crédito, pagué transferencia. Todo transparente." },
+            ],
+    [locale],
+  );
+  const shuffled = useMemo(() => [...opinionesPool].sort(() => Math.random() - 0.5), [opinionesPool]);
+  const row1 = shuffled;
+  const row2 = [...shuffled.slice(4), ...shuffled.slice(0, 4)];
+  const row3 = [...shuffled.slice(8), ...shuffled.slice(0, 8)];
 
   return (
     <div className="bg-[var(--color-cream)] text-[var(--color-ink)]">
@@ -239,7 +292,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
 
           <div className="col-span-12 overflow-hidden rounded-[28px] bg-black lg:col-span-4 lg:row-span-1 lg:min-h-[440px]">
             <div className="relative h-[280px] lg:h-full lg:min-h-[440px]">
-              <img src="/img/cenote-default.jpg" alt="Riviera Maya cenote" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+              <img src="/img/cenote-default.webp" alt="Riviera Maya cenote" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
               <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[11px] font-bold">DESDE $750</span>
             </div>
@@ -262,17 +315,33 @@ export default function HomePage({ locale }: { locale: Locale }) {
 
       {/* INFO AÑADIDA de tu captura — sin Covid, como extra debajo */}
       <section className="relative overflow-hidden bg-[#0a1930]">
-        <img src="/img/cenote-default.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-[0.14]" aria-hidden />
+        <img src="/img/cenote-default.webp" alt="" className="absolute inset-0 h-full w-full object-cover opacity-[0.14]" aria-hidden />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a1930]/50 to-[#0a1930]" />
         <div className="relative mx-auto max-w-[1440px] px-5 py-10 sm:px-6 lg:px-8">
-          <h2 className="text-center text-[22px] font-extrabold tracking-tight text-white sm:text-[26px]">Satisfacción Garantizada</h2>
+          <h2 className="text-center text-[22px] font-extrabold tracking-tight text-white sm:text-[26px]">{locale === "es" ? "Satisfacción Garantizada" : locale === "en" ? "Satisfaction Guaranteed" : "Soddisfazione Garantita"}</h2>
           <div className="mx-auto mt-5 grid max-w-[720px] grid-cols-2 gap-4 sm:grid-cols-4">
-            {[
-              { title: "Sin tarjeta de crédito", icon: "◫" },
-              { title: "Distintas formas de pago", icon: "$" },
-              { title: "Cobertura amplia de seguro", icon: "♡" },
-              { title: "Pet-Friendly", icon: "🐾" },
-            ].map((b) => (
+            {(
+              locale === "en"
+                ? [
+                    { title: "No credit card", icon: "◫" },
+                    { title: "Multiple payment methods", icon: "$" },
+                    { title: "Wide insurance coverage", icon: "♡" },
+                    { title: "Pet-Friendly", icon: "🐾" },
+                  ]
+                : locale === "it"
+                  ? [
+                      { title: "Senza carta di credito", icon: "◫" },
+                      { title: "Diversi metodi di pagamento", icon: "$" },
+                      { title: "Ampia copertura assicurativa", icon: "♡" },
+                      { title: "Pet-Friendly", icon: "🐾" },
+                    ]
+                  : [
+                      { title: "Sin tarjeta de crédito", icon: "◫" },
+                      { title: "Distintas formas de pago", icon: "$" },
+                      { title: "Cobertura amplia de seguro", icon: "♡" },
+                      { title: "Pet-Friendly", icon: "🐾" },
+                    ]
+            ).map((b) => (
               <div key={b.title} className="text-center">
                 <span className="mx-auto grid h-8 w-8 place-items-center rounded-full bg-white/10 text-[14px] text-white">{b.icon}</span>
                 <p className="mono mt-2 text-[11px] font-bold leading-tight tracking-[0.06em] text-white">{b.title}</p>
@@ -282,22 +351,52 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="bg-[#f6f7f9] py-10">
-        <div className="mx-auto flex max-w-[1040px] flex-col items-center justify-between gap-4 px-5 sm:flex-row sm:px-6">
-          <div className="text-center sm:text-left">
-            <p className="mono text-[11px] font-bold tracking-[0.14em] text-[#f97316]">PROMOCIONES VIGENTES</p>
-            <h3 className="mt-1 text-[18px] font-bold leading-tight text-[#050a14]">¿Hay promo esta semana? Pregunta y te decimos.</h3>
-            <p className="mono mt-1 text-[11px] text-black/40">Sin spam, solo la vigente por WhatsApp.</p>
+      {/* TESTIMONIOS — Facebook posts reales */}
+      <section className="mx-auto max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 className="display text-[28px] sm:text-[32px]">{locale === "es" ? "Promociones" : locale === "en" ? "Promotions" : "Promozioni"}</h2>
+            <p className="mono mt-1 inline-flex items-center gap-1.5 text-[11px] tracking-[0.1em] text-black/40">
+              <span className="grid h-4 w-4 place-items-center rounded-full bg-[#1877F2] text-[10px] font-bold text-white">f</span> Verificado en Facebook • SomcarMx
+            </p>
           </div>
-          <a href="https://wa.me/529981684805?text=Hola%20SOMCAR%2C%20quiero%20saber%20sobre%20sus%20promociones%20vigentes%20para%20renta%20en%20Canc%C3%BAn" target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-[#f97316] px-6 py-3 text-[13px] font-bold text-white shadow-[0_10px_24px_rgba(249,115,22,0.25)] hover:bg-[#c2410c]">
-            Preguntar por WhatsApp <span>→</span>
+        </div>
+        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+          {[
+            "https://www.facebook.com/SolucionesMovilesdelCaribe/posts/1600882992047740",
+            "https://www.facebook.com/SolucionesMovilesdelCaribe/posts/1696172239185481",
+            "https://www.facebook.com/SolucionesMovilesdelCaribe/posts/1679314057537966",
+          ].map((href) => (
+            <div key={href} className="overflow-hidden rounded-[24px] border border-black/10 bg-white">
+              <iframe
+                src={`https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(href)}&show_text=true&width=500`}
+                width="500"
+                height="560"
+                style={{ border: "none", overflow: "hidden", width: "100%" }}
+                scrolling="no"
+                frameBorder={0}
+                allowFullScreen
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                title={`Facebook post ${href}`}
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-[24px] bg-[#f97316] px-6 py-5 text-white sm:flex-row sm:px-8">
+          <div className="text-center sm:text-left">
+            <p className="mono text-[11px] font-bold tracking-[0.12em] text-white/90">{locale === "es" ? "PROMOS EN NUESTRA PÁGINA" : locale === "en" ? "DEALS ON OUR SITE" : "OFFERTE SUL SITO"}</p>
+            <p className="mt-1 text-[15px] font-bold leading-tight">{locale === "es" ? "¿Hay promo vigente? Pregunta por ellas en WhatsApp" : locale === "en" ? "Any current deal? Ask on WhatsApp" : "Offerte attive? Chiedi su WhatsApp"}</p>
+          </div>
+          <a href="https://wa.me/529981684805?text=Hola%20SOMCAR%2C%20quiero%20saber%20sobre%20sus%20promociones%20vigentes%20para%20renta%20en%20Canc%C3%BAn" target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-[13px] font-bold text-white shadow-sm hover:bg-white hover:text-black">
+            {locale === "es" ? "Preguntar por WhatsApp" : locale === "en" ? "Ask on WhatsApp" : "Chiedi su WhatsApp"} <span>→</span>
           </a>
         </div>
       </section>
 
       {/* ¿A DÓNDE QUIERES IR? — muy llamativo, lleva a /ruta */}
       <section className="relative overflow-hidden bg-[var(--color-ink)] py-12 text-white sm:py-16">
-        <img src="/img/cenote-default.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-[0.08]" aria-hidden />
+        <img src="/img/cenote-default.webp" alt="" className="absolute inset-0 h-full w-full object-cover opacity-[0.08]" aria-hidden />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-ink)] via-[var(--color-ink)]/90 to-[var(--color-ink)]" />
         <div className="relative mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -329,7 +428,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
               ].map((s, i) => (
                 <div key={`${s.place}-${i}`} className="flex w-[78vw] shrink-0 flex-col overflow-hidden rounded-[28px] border border-white/10 bg-white text-black sm:w-[320px] lg:w-[300px]">
                   <div className="relative h-[160px] overflow-hidden">
-                    <img src="/img/cenote-default.jpg" alt={s.place} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                    <img src="/img/cenote-default.webp" alt={s.place} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                     <span className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold">{s.km}</span>
                     <span className="absolute bottom-3 left-3 rounded-full bg-[var(--color-lime)] px-2.5 py-1 text-[10px] font-bold text-black">{s.time}</span>
@@ -355,76 +454,129 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {FICHAS.map((f, i) => (
-            <Link
+          {FICHAS.map((f, i) => {
+            const bg = f.slug === "shuttle" ? "/img/shuttle-van.webp" : "/img/renta-autos.webp";
+            return (
+            <div
               key={f.slug}
-              to={localize("ficha", locale, f.slug)}
-              className={`group relative flex flex-col gap-4 overflow-hidden border border-black/10 bg-white p-6 transition hover:shadow-[0_16px_40px_rgba(11,15,26,0.08)] sm:p-7 ${i % 2 === 0 ? "rounded-[28px] lg:flex-row lg:items-center" : "rounded-[32px] lg:flex-row-reverse lg:items-center"}`}
+              className={`group relative flex min-h-[380px] flex-col gap-4 overflow-hidden border border-white/15 p-6 transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(11,15,26,0.22)] sm:min-h-[420px] sm:p-7 ${i % 2 === 0 ? "rounded-[28px] lg:flex-row lg:items-center" : "rounded-[32px] lg:flex-row-reverse lg:items-center"}`}
             >
-              <span className="mono absolute right-4 top-4 rounded-full border border-black/10 bg-[var(--color-cream)] px-2.5 py-1 text-[11px] font-bold tracking-[0.1em]">0{i + 1} • {FICHAS.length}</span>
-              <div className={`grid h-16 w-16 shrink-0 place-items-center text-[22px] font-bold ${i % 2 === 0 ? "rounded-[20px] bg-[var(--color-ink)] text-white" : "rounded-full bg-[var(--color-lime)] text-black"}`}>
-                {i === 0 ? "◐" : "⇄"}
+              <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" aria-hidden onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/img/cenote-default.webp"; }} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10 transition duration-500 group-hover:from-black/80 group-hover:via-black/40" aria-hidden />
+              <div className="relative flex-1 pb-10 transition duration-500 group-hover:translate-y-[-2px]">
+                <h3 className="display text-[22px] text-white sm:text-[26px]">{f.datos[locale].nombre}</h3>
+                <p className="mt-2 max-w-[56ch] text-[13px] leading-relaxed text-white/80">{f.datos[locale].resumen}</p>
               </div>
-              <div className="flex-1">
-                <h3 className="display text-[22px] sm:text-[26px]">{f.datos[locale].nombre}</h3>
-                <p className="mt-2 max-w-[56ch] text-[13px] leading-relaxed text-black/60">{f.datos[locale].resumen}</p>
-                <span className="mono absolute bottom-4 right-4 inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.1em]">
-                  Ver detalles <span className="grid h-6 w-6 place-items-center rounded-full bg-black text-white transition group-hover:translate-x-0.5">→</span>
-                </span>
-              </div>
-              <div className="hidden items-center gap-2 rounded-full bg-[var(--color-cream)] px-4 py-2 text-[11px] font-bold lg:inline-flex">WhatsApp fotos ↗</div>
-            </Link>
-          ))}
+              <Link to={localize("ficha", locale, f.slug)} className="mono absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[11px] font-bold tracking-[0.1em] text-black shadow-sm transition duration-300 hover:bg-[var(--color-lime)] hover:shadow-md group-hover:bg-[var(--color-lime)]">
+                Ver detalles <span className="grid h-6 w-6 place-items-center rounded-full bg-black text-white transition duration-300 group-hover:translate-x-0.5">→</span>
+              </Link>
+            </div>
+            );
+          })}
         </div>
 
-        {/* Promo — pill gigante, no rectángulo */}
-        <div className="mt-6 flex flex-col items-center justify-between gap-4 rounded-[28px] bg-[var(--color-lime)] p-6 sm:flex-row sm:p-8">
-          <div>
-            <p className="display text-[20px] sm:text-[24px]">{t.promoTitle}</p>
-            <p className="mono mt-1 text-[12px] opacity-60">{t.promoText}</p>
-          </div>
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="shrink-0 rounded-full bg-black px-6 py-3 text-[13px] font-bold text-white">
-            Reservar 7 días
-          </a>
-        </div>
+
       </section>
 
-      {/* PROCESO — timeline vertical conector, no 4 cuadrados */}
+      {/* PROCESO — Opción B: sticky + imagen + timeline vertical */}
       <section className="bg-white py-12 sm:py-16">
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-8">
-          <h2 className="display text-[28px] sm:text-[36px]">{t.stepsTitle}</h2>
-
-          <div className="relative mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="pointer-events-none absolute left-4 right-4 top-[28px] hidden h-px bg-black/10 lg:block" aria-hidden />
-            {t.steps.map((s, i) => (
-              <div key={s.titulo} className="relative flex gap-4 rounded-[24px] border border-black/10 bg-[var(--color-cream)] p-5 sm:flex-col">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[var(--color-ink)] text-[14px] font-bold text-white sm:h-12 sm:w-12 sm:text-[16px]">{i + 1}</span>
-                <div>
-                  <h3 className="text-[15px] font-bold leading-tight">{s.titulo}</h3>
-                  <p className="mt-1 text-[13px] leading-relaxed text-black/60">{s.texto}</p>
+        <div className="mx-auto grid max-w-[1440px] gap-8 px-5 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
+          <div className="lg:col-span-5 lg:sticky lg:top-[88px] lg:self-start">
+            <h2 className="display text-[28px] leading-[0.95] sm:text-[42px]">{t.stepsTitle}</h2>
+            <p className="mt-3 max-w-[36ch] text-[13px] leading-relaxed text-black/60">{locale === "es" ? "Sin vueltas, en 4 toques queda lista tu reserva." : locale === "en" ? "No hassle, your booking is ready in 4 taps." : "Senza giri, la prenotazione è pronta in 4 tocchi."}</p>
+            <Link to={localize("cotizador", locale)} className="mono mt-6 hidden items-center gap-2 self-start rounded-full bg-black px-6 py-3 text-[13px] font-bold text-white transition hover:bg-[var(--color-ink)] lg:inline-flex">
+              Cotizar ahora <span>→</span>
+            </Link>
+          </div>
+          <div className="lg:col-span-7">
+            <div className="relative ml-3 border-l-2 border-black/10 pl-6 sm:pl-8">
+              {t.steps.map((s, i) => (
+                <div key={s.titulo} className="relative pb-6 last:pb-0">
+                  <span className="absolute -left-[33px] top-6 grid h-3 w-3 place-items-center rounded-full bg-[var(--color-accent)] ring-4 ring-white sm:-left-[41px]" aria-hidden />
+                  <div className={`relative overflow-hidden rounded-[24px] p-5 sm:p-6 ${i % 2 === 1 ? "bg-[var(--color-ink)] text-white" : "border border-black/10 bg-[var(--color-cream)]"}`}>
+                    <span className={`display pointer-events-none absolute -right-1 -top-1 text-[48px] font-extrabold leading-none ${i % 2 === 1 ? "text-white opacity-[0.07]" : "text-black opacity-[0.06]"}`}>0{i + 1}</span>
+                    <p className={`mono text-[11px] font-bold tracking-[0.12em] ${i % 2 === 1 ? "text-[var(--color-lime)]" : "text-black/40"}`}>PASO 0{i + 1}</p>
+                    <h3 className="relative mt-1 text-[16px] font-bold leading-tight">{s.titulo}</h3>
+                    <p className={`relative mt-2 text-[13px] leading-relaxed ${i % 2 === 1 ? "text-white/70" : "text-black/60"}`}>{s.texto}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="mt-6 lg:hidden">
+              <Link to={localize("cotizador", locale)} className="mono inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-[13px] font-bold text-white">
+                Cotizar ahora <span>→</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* TESTIMONIOS — quotes grandes, no cards grises */}
-      <section className="mx-auto max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8">
+      {/* OPINIONES FACEBOOK — carrusel infinito debajo de Reserva en 4 pasos */}
+      <section className="mx-auto max-w-[1440px] px-5 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="display text-[28px] sm:text-[32px]">{t.testiTitle}</h2>
-          <p className="mono text-[11px] tracking-[0.1em] text-black/40">{t.testiSub}</p>
+          <div>
+            <h2 className="display text-[28px] leading-[0.95] sm:text-[42px]">{locale === "es" ? "Lo que opinan nuestros clientes" : locale === "en" ? "What our customers say" : "Cosa dicono i nostri clienti"}</h2>
+            <p className="mono mt-2 text-[11px] tracking-[0.12em] text-black/40">98% recomendado • 260 opiniones en Facebook</p>
+          </div>
+          <a href="https://www.facebook.com/SolucionesMovilesdelCaribe/reviews" target="_blank" rel="noopener" className="mono hidden items-center gap-2 rounded-full bg-[#1877F2] px-4 py-2 text-[11px] font-bold text-white hover:bg-[#0a58ca] sm:inline-flex">Ver todas →</a>
         </div>
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
-          {TESTIMONIOS.map((x, i) => (
-            <figure key={x.nombre} className={`relative overflow-hidden p-6 sm:p-7 ${i === 1 ? "rounded-[32px] bg-[var(--color-ink)] text-white" : "rounded-[24px] border border-black/10 bg-white"}`}>
-              <span className={`absolute right-6 top-6 text-[48px] leading-none opacity-10 ${i === 1 ? "text-white" : "text-black"}`}>“</span>
-              <p className="mono text-[11px] tracking-[0.12em] text-[var(--color-coral)]">★★★★★</p>
-              <blockquote className={`mt-3 text-[15px] leading-relaxed ${i === 1 ? "text-white/90" : "text-black/70"}`}>“{x.texto}”</blockquote>
-              <figcaption className={`mono mt-4 text-[11px] font-bold tracking-[0.08em] ${i === 1 ? "text-white/60" : "text-black/50"}`}>— {x.nombre}</figcaption>
-            </figure>
-          ))}
+        <div className="mt-4 space-y-4">
+          {/* Fila 1 → derecha */}
+          <div className="overflow-hidden rounded-[20px]">
+            <div className="flex w-max animate-[carousel_60s_linear_infinite] gap-4 py-1">
+              {[...row1, ...row1].map((o, idx) => (
+                <article key={`r1-${o.nombre}-${idx}`} className="flex w-[320px] shrink-0 flex-col rounded-[20px] border border-black/10 bg-[#f0f2f5] p-4 sm:w-[340px] sm:p-5">
+                  <div className="flex gap-3">
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#1877F2] to-[#0a3d7a] text-[11px] font-bold text-white">{o.nombre.charAt(0)}</span>
+                    <div className="min-w-0">
+                      <p className="text-[12px] font-bold leading-tight">{o.nombre} <span className="rounded bg-[#e7f3ff] px-1 py-0.5 text-[10px] font-normal text-[#1877F2]">✓ recomienda</span></p>
+                      <p className="mono text-[10px] text-black/40">{o.fecha} · Recomendado · 🌐</p>
+                    </div>
+                  </div>
+                  <p className="mt-3 line-clamp-4 text-[13px] leading-relaxed text-black/75">“{o.texto}”</p>
+                  {(o as any).respuesta && <div className="mt-3 rounded-2xl bg-white p-3 text-[12px] leading-relaxed shadow-sm"><span className="font-bold">SOMCAR:</span> {(o as any).respuesta}</div>}
+                </article>
+              ))}
+            </div>
+          </div>
+          {/* Fila 2 ← izquierda (reverse) */}
+          <div className="overflow-hidden rounded-[20px]">
+            <div className="flex w-max animate-[carousel-rev_65s_linear_infinite] gap-4 py-1">
+              {[...row2, ...row2].map((o, idx) => (
+                <article key={`r2-${o.nombre}-${idx}`} className="flex w-[320px] shrink-0 flex-col rounded-[20px] border border-black/10 bg-[#f0f2f5] p-4 sm:w-[340px] sm:p-5">
+                  <div className="flex gap-3">
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#1877F2] to-[#0a3d7a] text-[11px] font-bold text-white">{o.nombre.charAt(0)}</span>
+                    <div className="min-w-0">
+                      <p className="text-[12px] font-bold leading-tight">{o.nombre} <span className="rounded bg-[#e7f3ff] px-1 py-0.5 text-[10px] font-normal text-[#1877F2]">✓ recomienda</span></p>
+                      <p className="mono text-[10px] text-black/40">{o.fecha} · Recomendado · 🌐</p>
+                    </div>
+                  </div>
+                  <p className="mt-3 line-clamp-4 text-[13px] leading-relaxed text-black/75">“{o.texto}”</p>
+                  {(o as any).respuesta && <div className="mt-3 rounded-2xl bg-white p-3 text-[12px] leading-relaxed shadow-sm"><span className="font-bold">SOMCAR:</span> {(o as any).respuesta}</div>}
+                </article>
+              ))}
+            </div>
+          </div>
+          {/* Fila 3 → derecha */}
+          <div className="overflow-hidden rounded-[20px]">
+            <div className="flex w-max animate-[carousel_58s_linear_infinite] gap-4 py-1">
+              {[...row3, ...row3].map((o, idx) => (
+                <article key={`r3-${o.nombre}-${idx}`} className="flex w-[320px] shrink-0 flex-col rounded-[20px] border border-black/10 bg-[#f0f2f5] p-4 sm:w-[340px] sm:p-5">
+                  <div className="flex gap-3">
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#1877F2] to-[#0a3d7a] text-[11px] font-bold text-white">{o.nombre.charAt(0)}</span>
+                    <div className="min-w-0">
+                      <p className="text-[12px] font-bold leading-tight">{o.nombre} <span className="rounded bg-[#e7f3ff] px-1 py-0.5 text-[10px] font-normal text-[#1877F2]">✓ recomienda</span></p>
+                      <p className="mono text-[10px] text-black/40">{o.fecha} · Recomendado · 🌐</p>
+                    </div>
+                  </div>
+                  <p className="mt-3 line-clamp-4 text-[13px] leading-relaxed text-black/75">“{o.texto}”</p>
+                  {(o as any).respuesta && <div className="mt-3 rounded-2xl bg-white p-3 text-[12px] leading-relaxed shadow-sm"><span className="font-bold">SOMCAR:</span> {(o as any).respuesta}</div>}
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
+        
       </section>
 
       {/* FAQ — acordeón limpio */}
@@ -445,53 +597,9 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* CONTACTO — CTA grande, no cuadrado azul */}
-      <section id="contacto" className="bg-[var(--color-ink)] px-5 py-12 text-white sm:px-6 lg:px-8 lg:py-16">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="grid gap-6 lg:grid-cols-12">
-            <div className="lg:col-span-8">
-              <h2 className="display text-[36px] leading-[0.9] sm:text-[48px]">{t.contactTitle}</h2>
-              <p className="mt-3 max-w-[44ch] text-[14px] leading-relaxed text-white/60">{t.contactSub} Respuesta real, no bot.</p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="inline-flex items-center gap-3 rounded-full bg-[var(--color-lime)] px-6 py-4 text-[14px] font-bold text-black transition hover:bg-[#d4e600]">
-                  WhatsApp: {PHONE_LABEL}
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-black text-xs text-white">↗</span>
-                </a>
-                <a href={`mailto:${EMAIL}`} className="rounded-full border border-white/20 bg-white/10 px-6 py-4 text-[14px] font-bold text-white backdrop-blur hover:bg-white hover:text-black">
-                  {EMAIL}
-                </a>
-              </div>
-            </div>
-            <div className="rounded-[28px] bg-white p-6 text-black lg:col-span-4">
-              <p className="mono text-[11px] font-bold tracking-[0.14em] text-black/40">ENCUÉNTRANOS</p>
-              <p className="mt-2 text-[13px] font-bold leading-relaxed">Aeropuerto CUN • Cancún centro • Playa del Carmen</p>
-              <p className="mono mt-2 text-[11px] leading-relaxed text-black/50">Entrega y recogida donde estés. Sin mostrador, sin fila.</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Link to={localize("terminos", locale)} className="rounded-full border border-black/10 px-3 py-1.5 text-[11px] font-bold">
-                  Términos
-                </Link>
-                <Link to={localize("privacidad", locale)} className="rounded-full border border-black/10 px-3 py-1.5 text-[11px] font-bold">
-                  Privacidad
-                </Link>
-              </div>
-            </div>
-          </div>
+      <Footer locale={locale} />
 
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6 text-[11px] tracking-[0.08em] text-white/40">
-            <span>SOMCAR · Soluciones Móviles del Caribe</span>
-            <span className="flex gap-3">
-              <a href="https://www.facebook.com/SolucionesMovilesdelCaribe/" target="_blank" rel="noopener" className="hover:text-white">
-                Facebook
-              </a>
-              <a href="https://www.instagram.com/somcar_mx/" target="_blank" rel="noopener" className="hover:text-white">
-                Instagram
-              </a>
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-33.33%)}}@keyframes dash{to{stroke-dashoffset:-14}}@keyframes carousel{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){[style*="animation: dash"],[style*="animation: carousel"]{animation:none!important}}`}</style>
+      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-33.33%)}}@keyframes dash{to{stroke-dashoffset:-14}}@keyframes carousel{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}@keyframes carousel-rev{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}@media(prefers-reduced-motion:reduce){[style*="animation: dash"],[style*="animation: carousel"]{animation:none!important}}`}</style>
     </div>
   );
 }

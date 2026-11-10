@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Link from "../components/Link";
 import { localize, usePageMeta, type Locale } from "../lib/router";
 
@@ -71,7 +72,7 @@ export default function NosotrosPage({ locale }: { locale: Locale }) {
 
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <img src="/img/cenote-default.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" aria-hidden />
+        <img src="/img/cenote-default.webp" alt="" className="absolute inset-0 h-full w-full object-cover" aria-hidden />
         <div className="absolute inset-0 bg-[var(--color-cream)]/82 backdrop-blur-[1px]" />
         <div className="relative mx-auto max-w-[1440px] px-5 py-12 sm:px-6 lg:px-8 lg:py-16">
           <p className="mono inline-flex rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] font-bold tracking-[0.14em]">{t.kicker}</p>
@@ -91,17 +92,17 @@ export default function NosotrosPage({ locale }: { locale: Locale }) {
       {/* HISTORIA — con pin 9 años */}
       <section className="mx-auto grid max-w-[1440px] gap-8 px-5 py-12 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-16">
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-3 py-1 text-[11px] font-bold tracking-[0.08em] text-white">★ 9 AÑOS DE EXPERIENCIA</div>
+          <div className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-3 py-1 text-[11px] font-bold tracking-[0.08em] text-white">{locale === "es" ? "★ 9 AÑOS DE EXPERIENCIA" : locale === "en" ? "★ 9 YEARS OF EXPERIENCE" : "★ 9 ANNI DI ESPERIENZA"}</div>
           <h2 className="display mt-3 text-[28px] sm:text-[32px]">{t.storyTitle}</h2>
           <p className="mt-4 max-w-[52ch] text-[14px] leading-relaxed text-black/60">{t.story}</p>
-          <p className="mono mt-3 text-[13px] italic text-black/50">“Descubre el Caribe libremente y #RentaUnAutoConSOMCAR.”</p>
+          <p className="mono mt-3 text-[13px] italic text-black/50">{locale === "es" ? "“Descubre el Caribe libremente y #RentaUnAutoConSOMCAR.”" : locale === "en" ? "“Discover the Caribbean freely — #RentACarWithSOMCAR.”" : "“Scopri i Caraibi liberamente — #NoleggiaConSOMCAR.”"}</p>
           <p className="mono mt-4 inline-flex rounded-full bg-[var(--color-ink)] px-3 py-1 text-[11px] font-bold tracking-[0.08em] text-white">Cancún • Puerto Morelos • Playa • Tulum • CUN</p>
         </div>
         <div className="grid grid-cols-2 gap-3">
           {t.values.map((v) => (
-            <div key={v.title} className={`rounded-[20px] border p-5 ${v.title.includes("9 años") ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white" : "border-black/10 bg-white"}`}>
+            <div key={v.title} className={`rounded-[20px] border p-5 ${t.values[0].title === v.title ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white" : "border-black/10 bg-white"}`}>
               <p className="text-[15px] font-bold leading-tight">{v.title}</p>
-              <p className={`mt-1 text-[12px] leading-relaxed ${v.title.includes("9 años") ? "text-white/90" : "text-black/60"}`}>{v.desc}</p>
+              <p className={`mt-1 text-[12px] leading-relaxed ${t.values[0].title === v.title ? "text-white/90" : "text-black/60"}`}>{v.desc}</p>
             </div>
           ))}
         </div>
@@ -115,14 +116,15 @@ export default function NosotrosPage({ locale }: { locale: Locale }) {
           <p className="mt-3 max-w-[48ch] text-[13px] leading-relaxed text-white/60">{t.commitmentDesc}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to={localize("ruta", locale)} className="rounded-full bg-white px-6 py-3 text-[13px] font-bold text-black hover:bg-[var(--color-accent)] hover:text-white">
-              Ver la ruta
+              {locale === "es" ? "Ver la ruta" : locale === "en" ? "See the route" : "Vedi il percorso"}
             </Link>
             <Link to={localize("cotizador", locale)} className="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-[13px] font-bold text-white hover:bg-white hover:text-black">
-              Cotizar ahora
+              {locale === "es" ? "Cotizar ahora" : locale === "en" ? "Get quote" : "Richiedi preventivo"}
             </Link>
           </div>
         </div>
       </section>
+      <Footer locale={locale} />
     </div>
   );
 }

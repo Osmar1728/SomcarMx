@@ -57,6 +57,7 @@ export function parsePath(pathname: string): ParsedRoute {
   if (m) {
     locale = m[1] as Locale;
     rest = clean.slice(m[0].length) || "/";
+    if (rest && !rest.startsWith("/")) rest = `/${rest}`;
   }
 
   if (rest === "/nosotros") return { name: "nosotros", locale };

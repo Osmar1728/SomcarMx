@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Link from "../components/Link";
 import { localize, usePageMeta, type Locale } from "../lib/router";
 
-const DEFAULT_IMG = "/img/cenote-default.jpg";
+const DEFAULT_IMG = "/img/cenote-default.webp";
 const STOPS: Record<Locale, { place: string; km: string; time: string; tag: string; title: string; desc: string; tips: string[]; whyCar: string; best: string; bring: string; eat: string }[]> = {
   es: [
     { place: "Cancún", km: "0 km", time: "Salida", tag: "Zona Hotelera", title: "Despierta y arranca", desc: "Playa Delfines al amanecer sin esperar van. El mejor arranque de la ruta.", tips: ["Playa pública", "Mirador", "Desayuno"], whyCar: "Decides 20 min o 2 horas.", best: "6:30–8:00am luz suave, sin gente", bring: "Termo de café, bloqueador coral-friendly", eat: "Mercado 28 — tacos de cochinita" },
@@ -60,11 +61,10 @@ export default function RutaPage({ locale }: { locale: Locale }) {
 
       {/* HERO */}
       <section className="mx-auto max-w-[1440px] px-5 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <p className="mono inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold tracking-[0.14em] text-white/80">RUTA WHITE DESERT INSPIRED</p>
         <h1 className="display mt-3 max-w-[16ch] text-[28px] leading-[0.9] sm:text-[42px] lg:text-[48px]">
-          De Cancún a Tulum, <span className="font-light italic text-white/70">sin prisa y en tu auto.</span>
+          {locale === "es" ? <>De Cancún a Tulum, <span className="font-light italic text-white/70">sin prisa y en tu auto.</span></> : locale === "en" ? <>From Cancun to Tulum, <span className="font-light italic text-white/70">on your time.</span></> : <>Da Cancún a Tulum, <span className="font-light italic text-white/70">senza fretta, con la tua auto.</span></>}
         </h1>
-        <p className="mt-2 max-w-[56ch] text-[13px] leading-relaxed text-white/60">Baja y la ruta se dibuja. Cada parada aparece a su tiempo — sin tours, sin reloj. Un scroll y ya estás en la primera.</p>
+        <p className="mt-2 max-w-[56ch] text-[13px] leading-relaxed text-white/60">{locale === "es" ? "Baja y la ruta se dibuja. Cada parada aparece a su tiempo — sin tours, sin reloj. Un scroll y ya estás en la primera." : locale === "en" ? "Scroll and the route unfolds. Each stop appears on time — no tours, no clock." : "Scorri e il percorso si disegna. Ogni tappa al suo tempo — senza tour."}</p>
       </section>
 
       {/* SCROLLYTELLING — mar turquesa de fondo + más imágenes */}
@@ -143,19 +143,19 @@ export default function RutaPage({ locale }: { locale: Locale }) {
 
                     <div className="mt-4 space-y-2 border-t border-white/10 pt-4">
                       <div className="flex justify-between gap-3 text-[11px]">
-                        <span className="mono shrink-0 text-white/40">Mejor hora</span>
+                        <span className="mono shrink-0 text-white/40">{locale === "es" ? "Mejor hora" : locale === "en" ? "Best time" : "Orario migliore"}</span>
                         <span className="max-w-[20ch] text-right font-medium">{s.best}</span>
                       </div>
                       <div className="flex justify-between gap-3 text-[11px]">
-                        <span className="mono shrink-0 text-white/40">Lleva</span>
+                        <span className="mono shrink-0 text-white/40">{locale === "es" ? "Lleva" : locale === "en" ? "Bring" : "Porta"}</span>
                         <span className="max-w-[20ch] text-right font-medium">{s.bring}</span>
                       </div>
                       <div className="flex justify-between gap-3 text-[11px]">
-                        <span className="mono shrink-0 text-white/40">Dónde comer</span>
+                        <span className="mono shrink-0 text-white/40">{locale === "es" ? "Dónde comer" : locale === "en" ? "Where to eat" : "Dove mangiare"}</span>
                         <span className="max-w-[20ch] text-right font-medium">{s.eat}</span>
                       </div>
                       <div className="flex justify-between gap-3 border-t border-white/5 pt-2 text-[11px]">
-                        <span className="mono shrink-0 text-white/40">Por qué en auto</span>
+                        <span className="mono shrink-0 text-white/40">{locale === "es" ? "Por qué en auto" : locale === "en" ? "Why by car" : "Perché in auto"}</span>
                         <span className="max-w-[20ch] text-right font-medium text-[#7dd3d8]">{s.whyCar}</span>
                       </div>
                       <div className="flex gap-1.5 pt-2">
@@ -207,25 +207,25 @@ export default function RutaPage({ locale }: { locale: Locale }) {
       <section className="mx-auto max-w-[1440px] px-5 py-8 sm:px-6 lg:px-8">
         <div className="grid gap-4 lg:grid-cols-2">
           <div className="rounded-[24px] border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <p className="mono text-[11px] font-bold tracking-[0.12em] text-white/40">TOUR TÍPICO</p>
-            <h3 className="mt-2 text-[18px] font-bold text-white/90">Corriendo y con fila</h3>
+            <p className="mono text-[11px] font-bold tracking-[0.12em] text-white/40">{locale === "es" ? "TOUR TÍPICO" : locale === "en" ? "TYPICAL TOUR" : "TOUR TIPICO"}</p>
+            <h3 className="mt-2 text-[18px] font-bold text-white/90">{locale === "es" ? "Corriendo y con fila" : locale === "en" ? "Rushed and crowded" : "Di corsa e in fila"}</h3>
             <ul className="mt-4 space-y-2 text-[13px] leading-relaxed text-white/60">
-              <li className="flex gap-2"><span className="text-white/30">✕</span> Horario fijo 7am–3pm</li>
-              <li className="flex gap-2"><span className="text-white/30">✕</span> 1 cenote con 40 personas</li>
-              <li className="flex gap-2"><span className="text-white/30">✕</span> Buffet turístico, sin opción</li>
-              <li className="flex gap-2"><span className="text-white/30">✕</span> Si hay sargazo, no hay plan B</li>
-              <li className="flex gap-2"><span className="text-white/30">✕</span> Foto rápida y al bus</li>
+              <li className="flex gap-2"><span className="text-white/30">✕</span> {locale === "es" ? "Horario fijo 7am–3pm" : locale === "en" ? "Fixed 7am–3pm schedule" : "Orario fisso 7–15"}</li>
+              <li className="flex gap-2"><span className="text-white/30">✕</span> {locale === "es" ? "1 cenote con 40 personas" : locale === "en" ? "1 cenote with 40 people" : "1 cenote con 40 persone"}</li>
+              <li className="flex gap-2"><span className="text-white/30">✕</span> {locale === "es" ? "Buffet turístico, sin opción" : locale === "en" ? "Tourist buffet, no choice" : "Buffet turistico"}</li>
+              <li className="flex gap-2"><span className="text-white/30">✕</span> {locale === "es" ? "Si hay sargazo, no hay plan B" : locale === "en" ? "If seaweed, no plan B" : "Se c'è alga, nessun piano B"}</li>
+              <li className="flex gap-2"><span className="text-white/30">✕</span> {locale === "es" ? "Foto rápida y al bus" : locale === "en" ? "Quick photo and back to bus" : "Foto veloce e via"}</li>
             </ul>
           </div>
           <div className="rounded-[24px] bg-white p-6 shadow-[0_16px_40px_rgba(0,0,0,0.3)]">
-            <p className="mono text-[11px] font-bold tracking-[0.12em] text-black/40">CON SOMCAR • SIN PRISA</p>
-            <h3 className="mt-2 text-[18px] font-bold">Tú mandas, el mar espera</h3>
+            <p className="mono text-[11px] font-bold tracking-[0.12em] text-black/40">{locale === "es" ? "CON SOMCAR • SIN PRISA" : locale === "en" ? "WITH SOMCAR • NO RUSH" : "CON SOMCAR • SENZA FRETTA"}</p>
+            <h3 className="mt-2 text-[18px] font-bold">{locale === "es" ? "Tú mandas, el mar espera" : locale === "en" ? "You lead, the sea waits" : "Decidi tu, il mare aspetta"}</h3>
             <ul className="mt-4 space-y-2 text-[13px] leading-relaxed text-black/60">
-              <li className="flex gap-2"><span className="text-[var(--color-accent)]">✓</span> Sales a la hora que quieres</li>
-              <li className="flex gap-2"><span className="text-[var(--color-accent)]">✓</span> 2–3 cenotes sin fila a las 9am</li>
-              <li className="flex gap-2"><span className="text-[var(--color-accent)]">✓</span> Tacos en el pueblo, sin prisa</li>
-              <li className="flex gap-2"><span className="text-[var(--color-accent)]">✓</span> Cambias de playa si hay sargazo</li>
-              <li className="flex gap-2"><span className="text-[var(--color-accent)]">✓</span> Atardecer en Tulum a tu ritmo</li>
+              <li className="flex gap-2"><span className="text-[var(--color-accent)]">✓</span> {locale === "es" ? "Sales a la hora que quieres" : locale === "en" ? "Leave when you want" : "Parti quando vuoi"}</li>
+              <li className="flex gap-2"><span className="text-[var(--color-accent)]">✓</span> {locale === "es" ? "2–3 cenotes sin fila a las 9am" : locale === "en" ? "2–3 cenotes no line at 9am" : "2–3 cenotes senza fila alle 9"}</li>
+              <li className="flex gap-2"><span className="text-[var(--color-accent)]">✓</span> {locale === "es" ? "Tacos en el pueblo, sin prisa" : locale === "en" ? "Tacos in town, no rush" : "Tacos in paese"}</li>
+              <li className="flex gap-2"><span className="text-[var(--color-accent)]">✓</span> {locale === "es" ? "Cambias de playa si hay sargazo" : locale === "en" ? "Switch beach if seaweed" : "Cambi spiaggia se serve"}</li>
+              <li className="flex gap-2"><span className="text-[var(--color-accent)]">✓</span> {locale === "es" ? "Atardecer en Tulum a tu ritmo" : locale === "en" ? "Sunset in Tulum on your time" : "Tramonto a Tulum con calma"}</li>
             </ul>
           </div>
         </div>
@@ -234,13 +234,14 @@ export default function RutaPage({ locale }: { locale: Locale }) {
       {/* cierre */}
       <section className="mx-auto max-w-[1440px] px-5 py-8 sm:px-6 lg:px-8">
         <div className="rounded-[24px] bg-[var(--color-accent)] p-6 text-white sm:p-8">
-          <h3 className="display text-[24px]">Sin tour: todo en un día, a tu hora.</h3>
-          <p className="mt-2 max-w-[52ch] text-[13px] leading-relaxed text-white/90">Con SOMCAR paras donde quieres. Cotiza la ruta completa y te damos el auto sin tarjeta ni depósito.</p>
+          <h3 className="display text-[24px]">{locale === "es" ? "Sin tour: todo en un día, a tu hora." : locale === "en" ? "No tour: all in one day, on your time." : "Senza tour: tutto in un giorno."}</h3>
+          <p className="mt-2 max-w-[52ch] text-[13px] leading-relaxed text-white/90">{locale === "es" ? "Con SOMCAR paras donde quieres. Cotiza la ruta completa y te damos el auto sin tarjeta ni depósito." : locale === "en" ? "With SOMCAR you stop where you want. Quote the full route — no card, no deposit." : "Con SOMCAR ti fermi dove vuoi. Preventivo senza carta né deposito."}</p>
           <Link to={localize("cotizador", locale)} className="mt-4 inline-flex rounded-full bg-white px-6 py-3 text-[13px] font-bold text-black hover:bg-black hover:text-white">
-            Cotizar ruta completa
+            {locale === "es" ? "Cotizar ruta completa" : locale === "en" ? "Quote full route" : "Preventivo completo"}
           </Link>
         </div>
       </section>
+      <Footer locale={locale} />
     </div>
   );
 }

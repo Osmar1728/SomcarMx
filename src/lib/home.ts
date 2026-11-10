@@ -41,6 +41,20 @@ export interface HomeContent {
 export const WHATSAPP_URL = "https://wa.me/529981684805";
 export const PHONE_LABEL = "+52 998 168 4805";
 export const EMAIL = "contacto@somcar.mx";
+export const WHATSAPP_DEFAULT_MSG: Record<import("./router").Locale, string> = {
+  es: "Hola SOMCAR, quiero información para rentar un auto en Cancún. ¿Me ayudan con disponibilidad y precio?",
+  en: "Hi SOMCAR, I'd like info to rent a car in Cancun. Availability and price please?",
+  it: "Ciao SOMCAR, vorrei info per noleggiare un'auto a Cancún. Disponibilità e prezzo?",
+};
+export const WHATSAPP_SHUTTLE_MSG: Record<import("./router").Locale, string> = {
+  es: "Hola SOMCAR, quiero cotizar una transportación privada. ¿Me ayudan con precio y disponibilidad? (Aeropuerto-hotel)",
+  en: "Hi SOMCAR, I'd like to quote a private shuttle. Price and availability please? (Airport-hotel)",
+  it: "Ciao SOMCAR, vorrei un preventivo per un transfer privato. Prezzo e disponibilità? (Aeroporto-hotel)",
+};
+export function whatsappUrl(locale: import("./router").Locale, kind: "default" | "shuttle" = "default") {
+  const msg = kind === "shuttle" ? WHATSAPP_SHUTTLE_MSG[locale] : WHATSAPP_DEFAULT_MSG[locale];
+  return `${WHATSAPP_URL}?text=${encodeURIComponent(msg)}`;
+}
 
 export const HOME: Record<Locale, HomeContent> = {
   es: {

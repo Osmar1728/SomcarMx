@@ -6,23 +6,20 @@ const LABELS: Record<Locale, { page: StaticPage; label: string }[]> = {
   es: [
     { page: "home", label: "Inicio" },
     { page: "ruta", label: "Ruta" },
-    { page: "nosotros", label: "Nosotros" },
     { page: "servicios", label: "Servicios" },
-    { page: "contacto", label: "Contacto" },
+    { page: "nosotros", label: "Nosotros" },
   ],
   en: [
     { page: "home", label: "Home" },
     { page: "ruta", label: "Route" },
-    { page: "nosotros", label: "About" },
     { page: "servicios", label: "Services" },
-    { page: "contacto", label: "Contact" },
+    { page: "nosotros", label: "About" },
   ],
   it: [
     { page: "home", label: "Home" },
     { page: "ruta", label: "Percorso" },
-    { page: "nosotros", label: "Chi siamo" },
     { page: "servicios", label: "Servizi" },
-    { page: "contacto", label: "Contatti" },
+    { page: "nosotros", label: "Chi siamo" },
   ],
 };
 
@@ -33,7 +30,7 @@ export default function Header({ locale, switchPath }: { locale: Locale; switchP
     <header className="sticky top-0 z-50 border-b border-black/5 bg-white/90 backdrop-blur-xl">
       <div className="mx-auto flex h-[64px] max-w-[1440px] items-center gap-3 px-5 sm:px-6 lg:px-8">
         <Link to={localize("home", locale)} className="flex items-center gap-2" aria-label="SOMCAR inicio">
-          <img src="/img/logo-fondo-blanco.jpeg" alt="SOMCAR" className="h-8 w-auto rounded-full border border-black/10 object-contain p-0.5" />
+          <img src="/img/logo-fondo-blanco.webp" alt="SOMCAR" className="h-8 w-auto rounded-full border border-black/10 object-contain p-0.5" />
           <span className="hidden text-[11px] font-bold tracking-[0.14em] sm:inline">SOMCAR</span>
         </Link>
 
