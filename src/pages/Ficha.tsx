@@ -99,7 +99,7 @@ export default function FichaPage({ locale, slug }: { locale: Locale; slug: stri
 
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <img src={isRenta ? "/img/renta-autos.webp" : "/img/shuttle-van.webp"} alt="" className="absolute inset-0 h-full w-full object-cover" onError={(e) => ((e.currentTarget as HTMLImageElement).src = "/img/cenote-default.webp")} />
+        <img src={isRenta ? "/img/renta-autos-riviera.webp" : "/img/shuttle-transfer.webp"} alt="" className="absolute inset-0 h-full w-full object-cover" onError={(e) => ((e.currentTarget as HTMLImageElement).src = "/img/cenote-default.webp")} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10" aria-hidden />
         <div className="relative mx-auto max-w-[1440px] px-5 py-10 sm:px-6 lg:px-8 lg:py-14">
           <span className="inline-flex rounded-full bg-white px-3 py-1 text-[11px] font-bold">{isRenta ? tr.heroBadgeRenta : tr.heroBadgeShuttle}</span>
@@ -162,7 +162,7 @@ export default function FichaPage({ locale, slug }: { locale: Locale; slug: stri
               ].map((c) => (
                 <div key={c.cat} className="group relative overflow-hidden rounded-[20px] border border-black/10 bg-white">
                   <div className="relative h-[190px] overflow-hidden bg-black sm:h-[200px]">
-                    <img src={`/img/categoria-${c.cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}.webp`} alt={c.cat} className="absolute inset-0 h-full w-full object-cover opacity-90 transition group-hover:scale-[1.04]" loading="lazy" onError={(e) => ((e.currentTarget as HTMLImageElement).src = "/img/renta-autos.webp")} />
+                    <img src={`/img/categoria-${c.cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}.webp`} alt={c.cat} className="absolute inset-0 h-full w-full object-cover opacity-90 transition" loading="lazy" onError={(e) => ((e.currentTarget as HTMLImageElement).src = "/img/renta-autos-riviera.webp")} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <span className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold">{c.cat.toUpperCase()}</span>
                     <span className="absolute bottom-2 right-2 rounded-full bg-black/60 px-2 py-1 text-[10px] font-bold text-white">{c.pax} pax</span>

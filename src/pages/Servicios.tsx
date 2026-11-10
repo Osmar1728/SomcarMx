@@ -92,8 +92,8 @@ export default function ServiciosPage({ locale }: { locale: Locale }) {
       <section className="mx-auto max-w-[1440px] px-5 pb-8 sm:px-6 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="group relative flex min-h-[480px] flex-col overflow-hidden rounded-[32px] border border-black/10 bg-white p-6 sm:p-8">
-            <img src="/img/renta-autos.webp" alt="" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" loading="lazy" onError={(e) => ((e.currentTarget as HTMLImageElement).src = "/img/cenote-default.webp")} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/5" aria-hidden />
+            <img src="/img/renta-autos-riviera.webp" alt="" className="absolute inset-0 h-full w-full object-cover object-center" loading="lazy" onError={(e) => ((e.currentTarget as HTMLImageElement).src = "/img/cenote-default.webp")} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" aria-hidden />
             <span className="relative inline-flex w-fit rounded-full bg-white px-3 py-1 text-[11px] font-bold">{tr.rentaBadge}</span>
             <div className="relative mt-auto">
               <h2 className="display text-[28px] text-white sm:text-[32px]">{renta.datos[locale].nombre}</h2>
@@ -111,8 +111,8 @@ export default function ServiciosPage({ locale }: { locale: Locale }) {
           </div>
 
           <div className="group relative flex min-h-[480px] flex-col overflow-hidden rounded-[32px] border border-black/10 bg-white p-6 sm:p-8">
-            <img src="/img/shuttle-van.webp" alt="" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" loading="lazy" onError={(e) => ((e.currentTarget as HTMLImageElement).src = "/img/cenote-default.webp")} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/5" aria-hidden />
+            <img src="/img/shuttle-transfer.webp" alt="" className="absolute inset-0 h-full w-full object-cover object-center" loading="lazy" onError={(e) => ((e.currentTarget as HTMLImageElement).src = "/img/cenote-default.webp")} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" aria-hidden />
             <span className="relative inline-flex w-fit rounded-full bg-[var(--color-lime)] px-3 py-1 text-[11px] font-bold text-black">{tr.shuttleBadge}</span>
             <div className="relative mt-auto">
               <h2 className="display text-[28px] text-white sm:text-[32px]">{shuttle.datos[locale].nombre}</h2>

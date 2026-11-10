@@ -89,7 +89,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
         {/* VIDEO fondo — secuencia: hotelera → cenote → atardecer (grabado con stock Pexels, reemplazar con tu grabación) */}
         <video
           id="hero-video"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover object-center"
           autoPlay
           muted
           playsInline
@@ -168,7 +168,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
           <div className="col-span-12 lg:col-span-5">
             <div className="group relative mx-auto max-w-[420px] transition duration-500 hover:-translate-y-1 lg:ml-auto">
               {/* floating badge */}
-              <div className="absolute -right-2 -top-3 z-10 rotate-3 rounded-2xl bg-[var(--color-coral)] px-3 py-2 text-[11px] font-bold tracking-[0.08em] text-white shadow-lg transition group-hover:rotate-0 group-hover:scale-105 sm:right-0">
+              <div className="absolute -right-2 -top-3 z-10 rotate-3 rounded-2xl bg-[var(--color-coral)] px-3 py-2 text-[11px] font-bold tracking-[0.08em] text-white shadow-lg transition group-hover:rotate-0  -105 sm:right-0">
                 {locale === "es" ? "SIN TARJETA • SIN DEPÓSITO" : "NO CARD • NO DEPOSIT"}
               </div>
 
@@ -215,7 +215,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
                       style={{ animation: "dash 1.1s linear infinite" }}
                     />
                     {/* puntos tesoro */}
-                    <g className="transition duration-500 group-hover:scale-[1.03]" style={{ transformOrigin: "180px 45px" }}>
+                    <g className="transition duration-500" style={{ transformOrigin: "180px 45px" }}>
                       <text x="10" y="58" fontSize="14" textAnchor="middle">⚓</text>
                       <text x="108" y="18" fontSize="11">✦</text>
                       <text x="183" y="42" fontSize="12">◎</text>
@@ -292,7 +292,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
 
           <div className="col-span-12 overflow-hidden rounded-[28px] bg-black lg:col-span-4 lg:row-span-1 lg:min-h-[440px]">
             <div className="relative h-[280px] lg:h-full lg:min-h-[440px]">
-              <img src="/img/cenote-default.webp" alt="Riviera Maya cenote" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+              <img src="/img/rentar-facil-centro.webp" alt="Riviera Maya cenote" className="absolute inset-0 h-full w-full object-cover object-center" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
               <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[11px] font-bold">DESDE $750</span>
             </div>
@@ -415,20 +415,20 @@ export default function HomePage({ locale }: { locale: Locale }) {
           <div className="mt-8 overflow-hidden">
             <div className="flex w-max animate-[carousel_28s_linear_infinite] gap-4 sm:gap-5 lg:gap-6">
               {[
-                { place: "Cancún", km: "0 km", time: "Salida", do: "Playa + mercado 28" },
-                { place: "Puerto Morelos", km: "36 km", time: "28 min", do: "Snorkel en arrecife" },
-                { place: "Playa del Carmen", km: "68 km", time: "55 min", do: "Cenote + 5ta Av" },
-                { place: "Akumal", km: "84 km", time: "1h 10m", do: "Nado con tortugas" },
-                { place: "Tulum", km: "122 km", time: "1h 30m", do: "Ruinas + laguna" },
-                { place: "Cancún", km: "0 km", time: "Salida", do: "Playa + mercado 28" },
-                { place: "Puerto Morelos", km: "36 km", time: "28 min", do: "Snorkel en arrecife" },
-                { place: "Playa del Carmen", km: "68 km", time: "55 min", do: "Cenote + 5ta Av" },
-                { place: "Akumal", km: "84 km", time: "1h 10m", do: "Nado con tortugas" },
-                { place: "Tulum", km: "122 km", time: "1h 30m", do: "Ruinas + laguna" },
+                { place: "Cancún", km: "0 km", time: "Salida", do: "Playa + mercado 28", img: "/img/cancun-playa.webp" },
+                { place: "Puerto Morelos", km: "36 km", time: "28 min", do: "Snorkel en arrecife", img: "/img/puerto-morelos-arrecife.webp" },
+                { place: "Playa del Carmen", km: "68 km", time: "55 min", do: "Cenote + 5ta Av", img: "/img/playa-del-carmen-cenote.webp" },
+                { place: "Akumal", km: "84 km", time: "1h 10m", do: "Nado con tortugas", img: "/img/akumal-tortugas.webp" },
+                { place: "Tulum", km: "122 km", time: "1h 30m", do: "Ruinas + laguna", img: "/img/tulum-ruinas.webp" },
+                { place: "Cancún", km: "0 km", time: "Salida", do: "Playa + mercado 28", img: "/img/cancun-playa.webp" },
+                { place: "Puerto Morelos", km: "36 km", time: "28 min", do: "Snorkel en arrecife", img: "/img/puerto-morelos-arrecife.webp" },
+                { place: "Playa del Carmen", km: "68 km", time: "55 min", do: "Cenote + 5ta Av", img: "/img/playa-del-carmen-cenote.webp" },
+                { place: "Akumal", km: "84 km", time: "1h 10m", do: "Nado con tortugas", img: "/img/akumal-tortugas.webp" },
+                { place: "Tulum", km: "122 km", time: "1h 30m", do: "Ruinas + laguna", img: "/img/tulum-ruinas.webp" },
               ].map((s, i) => (
                 <div key={`${s.place}-${i}`} className="flex w-[78vw] shrink-0 flex-col overflow-hidden rounded-[28px] border border-white/10 bg-white text-black sm:w-[320px] lg:w-[300px]">
                   <div className="relative h-[160px] overflow-hidden">
-                    <img src="/img/cenote-default.webp" alt={s.place} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                    <img src={s.img} alt={s.place} className="absolute inset-0 h-full w-full object-cover object-center" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                     <span className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold">{s.km}</span>
                     <span className="absolute bottom-3 left-3 rounded-full bg-[var(--color-lime)] px-2.5 py-1 text-[10px] font-bold text-black">{s.time}</span>
@@ -455,14 +455,14 @@ export default function HomePage({ locale }: { locale: Locale }) {
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
           {FICHAS.map((f, i) => {
-            const bg = f.slug === "shuttle" ? "/img/shuttle-van.webp" : "/img/renta-autos.webp";
+            const bg = f.slug === "shuttle" ? "/img/shuttle-transfer.webp" : "/img/renta-autos-riviera.webp";
             return (
             <div
               key={f.slug}
               className={`group relative flex min-h-[380px] flex-col gap-4 overflow-hidden border border-white/15 p-6 transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(11,15,26,0.22)] sm:min-h-[420px] sm:p-7 ${i % 2 === 0 ? "rounded-[28px] lg:flex-row lg:items-center" : "rounded-[32px] lg:flex-row-reverse lg:items-center"}`}
             >
-              <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" aria-hidden onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/img/cenote-default.webp"; }} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10 transition duration-500 group-hover:from-black/80 group-hover:via-black/40" aria-hidden />
+              <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover object-center" loading="lazy" aria-hidden onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/img/cenote-default.webp"; }} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent transition duration-500 group-hover:from-black/80 group-hover:via-black/40" aria-hidden />
               <div className="relative flex-1 pb-10 transition duration-500 group-hover:translate-y-[-2px]">
                 <h3 className="display text-[22px] text-white sm:text-[26px]">{f.datos[locale].nombre}</h3>
                 <p className="mt-2 max-w-[56ch] text-[13px] leading-relaxed text-white/80">{f.datos[locale].resumen}</p>
